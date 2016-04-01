@@ -1,0 +1,15 @@
+.dumascroll {}        /*只需对需要渲染滚动条的div设置该class即可,div要固定高度，超出部分设置隐藏，显示纵向滚动条。*/
+.dumascroll_area {    height:100%;overflow:hidden;}
+.dumascroll_bar,.dumascroll_handle,.dumascroll_handle_a,.dumascroll_arrow_up,.dumascroll_arrow_up_a,.dumascroll_arrow_down,.dumascroll_arrow_down_a {    background-image:url(../images/un_bg_bar.gif);}
+.dumascroll_bar {    position:absolute;    top:0;    right:0;    z-index:9;    width:14px;    height:100%;    cursor:default;    -moz-user-select:none;    -khtml-user-select:none;    user-select:none;    background-repeat:repeat-y;    background-position:-42px 0;    float:left;}
+.dumascroll_arrow_up,.dumascroll_arrow_up_a,.dumascroll_handle,.dumascroll_handle_a,.dumascroll_arrow_down,.dumascroll_arrow_down_a {    position:absolute;    left:0;}
+.dumascroll_arrow_up,.dumascroll_arrow_up_a,.dumascroll_arrow_down,.dumascroll_arrow_down_a {    width:100%;    height:14px;    color:#fff;    text-align:center;}
+.dumascroll_arrow_up,.dumascroll_arrow_up_a { top:0; }
+.dumascroll_arrow_down,.dumascroll_arrow_down_a { bottom:0; }
+.dumascroll_handle,.dumascroll_handle_a { width:100%; background-repeat:repeat-y; }
+.dumascroll_arrow_up { background-position:0 0; }
+.dumascroll_arrow_up_a { background-position:-14px 0; }
+.dumascroll_handle { background-position:-28px 0; }
+.dumascroll_handle_a { background-position:-56px 0; }
+.dumascroll_arrow_down { background-position:-70px 0; }
+.dumascroll_arrow_down_a { background-position:-84px 0; }

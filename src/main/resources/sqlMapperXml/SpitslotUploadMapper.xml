@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lrh.mapper.SpitslotUploadMapper" >
+  <resultMap id="BaseResultMap" type="com.lrh.model.SpitslotUpload" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="spitslot_id" property="spitslotId" jdbcType="BIGINT" />
+    <result column="file_id" property="fileId" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, spitslot_id, file_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from spitslot_upload
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from spitslot_upload
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.lrh.model.SpitslotUpload" >
+    <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into spitslot_upload (spitslot_id, file_id)
+    values (#{spitslotId,jdbcType=BIGINT}, #{fileId,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lrh.model.SpitslotUpload" >
+    <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into spitslot_upload
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="spitslotId != null" >
+        spitslot_id,
+      </if>
+      <if test="fileId != null" >
+        file_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="spitslotId != null" >
+        #{spitslotId,jdbcType=BIGINT},
+      </if>
+      <if test="fileId != null" >
+        #{fileId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lrh.model.SpitslotUpload" >
+    update spitslot_upload
+    <set >
+      <if test="spitslotId != null" >
+        spitslot_id = #{spitslotId,jdbcType=BIGINT},
+      </if>
+      <if test="fileId != null" >
+        file_id = #{fileId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lrh.model.SpitslotUpload" >
+    update spitslot_upload
+    set spitslot_id = #{spitslotId,jdbcType=BIGINT},
+      file_id = #{fileId,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

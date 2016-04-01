@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lrh.mapper.GameMapper">
+  <resultMap id="BaseResultMap" type="com.lrh.model.Game">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="game_type" jdbcType="INTEGER" property="gameType" />
+    <result column="game_time" jdbcType="INTEGER" property="gameTime" />
+    <result column="game_name" jdbcType="VARCHAR" property="gameName" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="add_time" jdbcType="VARCHAR" property="addTime" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.lrh.model.Game">
+    <result column="game_all" jdbcType="LONGVARCHAR" property="gameAll" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, game_type, game_time, game_name, user_id, add_time
+  </sql>
+  <sql id="Blob_Column_List">
+    game_all
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from game
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from game
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lrh.model.Game">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into game (game_type, game_time, game_name, 
+      user_id, add_time, game_all
+      )
+    values (#{gameType,jdbcType=INTEGER}, #{gameTime,jdbcType=INTEGER}, #{gameName,jdbcType=VARCHAR}, 
+      #{userId,jdbcType=INTEGER}, #{addTime,jdbcType=VARCHAR}, #{gameAll,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.lrh.model.Game">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into game
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="gameType != null">
+        game_type,
+      </if>
+      <if test="gameTime != null">
+        game_time,
+      </if>
+      <if test="gameName != null">
+        game_name,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="addTime != null">
+        add_time,
+      </if>
+      <if test="gameAll != null">
+        game_all,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="gameType != null">
+        #{gameType,jdbcType=INTEGER},
+      </if>
+      <if test="gameTime != null">
+        #{gameTime,jdbcType=INTEGER},
+      </if>
+      <if test="gameName != null">
+        #{gameName,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="addTime != null">
+        #{addTime,jdbcType=VARCHAR},
+      </if>
+      <if test="gameAll != null">
+        #{gameAll,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lrh.model.Game">
+    update game
+    <set>
+      <if test="gameType != null">
+        game_type = #{gameType,jdbcType=INTEGER},
+      </if>
+      <if test="gameTime != null">
+        game_time = #{gameTime,jdbcType=INTEGER},
+      </if>
+      <if test="gameName != null">
+        game_name = #{gameName,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="addTime != null">
+        add_time = #{addTime,jdbcType=VARCHAR},
+      </if>
+      <if test="gameAll != null">
+        game_all = #{gameAll,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.lrh.model.Game">
+    update game
+    set game_type = #{gameType,jdbcType=INTEGER},
+      game_time = #{gameTime,jdbcType=INTEGER},
+      game_name = #{gameName,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=INTEGER},
+      add_time = #{addTime,jdbcType=VARCHAR},
+      game_all = #{gameAll,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lrh.model.Game">
+    update game
+    set game_type = #{gameType,jdbcType=INTEGER},
+      game_time = #{gameTime,jdbcType=INTEGER},
+      game_name = #{gameName,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=INTEGER},
+      add_time = #{addTime,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <!-- 根据用户id,游戏类型和游戏名称查询 (理论上只有一个)-->
+  <select id="findGameInfo" parameterType="com.lrh.model.Game" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from game
+    where 1=1
+    <if test="gameType != null">
+      and game_type = #{gameType,jdbcType=INTEGER}
+    </if>
+    <if test="gameName != null">
+      and game_name = #{gameName,jdbcType=VARCHAR}
+    </if>
+    <if test="userId != null">
+      and user_id = #{userId,jdbcType=INTEGER}
+    </if>
+  </select>
+  
+  <!-- 根据用户id,游戏名称,游戏类型查询 (不查询游戏内容)-->
+  <select id="findGameInfoByUser" resultMap="BaseResultMap" parameterType="com.lrh.model.Game" >
+    select 
+    <include refid="Base_Column_List" />
+    from game
+    where 1=1
+    <if test="gameType != null">
+      and game_type = #{gameType,jdbcType=INTEGER}
+    </if>
+    <if test="gameName != null">
+      and game_name = #{gameName,jdbcType=VARCHAR}
+    </if>
+    <if test="userId != null">
+      and user_id = #{userId,jdbcType=INTEGER}
+    </if>
+  </select>
+</mapper>

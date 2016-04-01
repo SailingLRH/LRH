@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lrh.mapper.BlogMapper" >
+  <resultMap id="BaseResultMap" type="com.lrh.model.Blog" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="SMALLINT" />
+    <result column="public_type" property="publicType" jdbcType="SMALLINT" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="add_time" property="addTime" jdbcType="VARCHAR" />
+    <result column="public_to_users" property="publicToUsers" jdbcType="VARCHAR" />
+    <result column="read_number" property="readNumber" jdbcType="INTEGER" />
+    <result column="simple_content" property="simpleContent" jdbcType="VARCHAR" />
+    <result column="last_edit_time" property="lastEditTime" jdbcType="VARCHAR" />
+    <result column="first_img" property="firstImg" jdbcType="VARCHAR" />
+    <result column="type_name" property="typeName" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.lrh.model.Blog" extends="BaseResultMap" >
+    <result column="content" property="content" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  
+  <!-- 用于一对多关联查询的返回结果 -->
+  <resultMap id="blogInfo" extends="myBlogs" type="com.lrh.model.Blog" >
+  	<result column="content" property="content" jdbcType="LONGVARCHAR" />
+  	
+  	<association property="user" column="user_id" javaType="com.lrh.model.User" 
+  		select="com.lrh.mapper.UserMapper.selectByPrimaryKey"></association>
+  	
+  	<collection property="comments" column="id" ofType="com.lrh.view.CommentView" 
+	    select="com.lrh.mapper.BlogCommentMapper.findFiveComments" javaType="ArrayList" >
+	</collection>
+	
+  </resultMap>
+  
+  <!-- 用于一对多关联查询的返回结果 -->
+  <resultMap id="myBlogs" extends="BaseResultMap" type="com.lrh.model.Blog" >
+  	<association property="praiseCount" column="id" javaType="java.lang.Integer" 
+  		select="com.lrh.mapper.BlogPraiseMapper.getPraiseCount"></association>
+  		
+  	<association property="commentsCount" column="id" javaType="java.lang.Integer" 
+  		select="com.lrh.mapper.BlogCommentMapper.getCommentCount"></association>
+  		
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+     b.id,  b.user_id,  b.title,  b.status,  b.public_type,  b.type,  b.add_time,  b.public_to_users,  b.read_number, 
+     b.last_edit_time,b.simple_content,b.first_img
+  </sql>
+  <sql id="Blob_Column_List" >
+     b.content
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="blogInfo" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+   	,t.type_name
+    from blog b
+    left join data_type t on b.type=t.type_code
+    where b.id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from blog
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.lrh.model.Blog" >
+    <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into blog (user_id, title, status, 
+      public_type, type, add_time, 
+      public_to_users, read_number, simple_content, 
+      last_edit_time, first_img, content
+      )
+    values (#{userId,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{status,jdbcType=SMALLINT}, 
+      #{publicType,jdbcType=SMALLINT}, #{type,jdbcType=VARCHAR}, #{addTime,jdbcType=VARCHAR}, 
+      #{publicToUsers,jdbcType=VARCHAR}, #{readNumber,jdbcType=INTEGER}, #{simpleContent,jdbcType=VARCHAR}, 
+      #{lastEditTime,jdbcType=VARCHAR}, #{firstImg,jdbcType=VARCHAR}, #{content,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.lrh.model.Blog" >
+    <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into blog
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="publicType != null" >
+        public_type,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="addTime != null" >
+        add_time,
+      </if>
+      <if test="publicToUsers != null" >
+        public_to_users,
+      </if>
+      <if test="readNumber != null" >
+        read_number,
+      </if>
+      <if test="simpleContent != null" >
+        simple_content,
+      </if>
+      <if test="lastEditTime != null" >
+        last_edit_time,
+      </if>
+      <if test="firstImg != null" >
+        first_img,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=SMALLINT},
+      </if>
+      <if test="publicType != null" >
+        #{publicType,jdbcType=SMALLINT},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null" >
+        #{addTime,jdbcType=VARCHAR},
+      </if>
+      <if test="publicToUsers != null" >
+        #{publicToUsers,jdbcType=VARCHAR},
+      </if>
+      <if test="readNumber != null" >
+        #{readNumber,jdbcType=INTEGER},
+      </if>
+      <if test="simpleContent != null" >
+        #{simpleContent,jdbcType=VARCHAR},
+      </if>
+      <if test="lastEditTime != null" >
+        #{lastEditTime,jdbcType=VARCHAR},
+      </if>
+      <if test="firstImg != null" >
+        #{firstImg,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lrh.model.Blog" >
+    update blog
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=SMALLINT},
+      </if>
+      <if test="publicType != null" >
+        public_type = #{publicType,jdbcType=SMALLINT},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null" >
+        add_time = #{addTime,jdbcType=VARCHAR},
+      </if>
+      <if test="publicToUsers != null" >
+        public_to_users = #{publicToUsers,jdbcType=VARCHAR},
+      </if>
+      <if test="readNumber != null" >
+        read_number = #{readNumber,jdbcType=INTEGER},
+      </if>
+      <if test="simpleContent != null" >
+        simple_content = #{simpleContent,jdbcType=VARCHAR},
+      </if>
+      <if test="lastEditTime != null" >
+        last_edit_time = #{lastEditTime,jdbcType=VARCHAR},
+      </if>
+      <if test="firstImg != null" >
+        first_img = #{firstImg,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.lrh.model.Blog" >
+    update blog
+    set user_id = #{userId,jdbcType=INTEGER},
+      title = #{title,jdbcType=VARCHAR},
+      status = #{status,jdbcType=SMALLINT},
+      public_type = #{publicType,jdbcType=SMALLINT},
+      type = #{type,jdbcType=VARCHAR},
+      add_time = #{addTime,jdbcType=VARCHAR},
+      public_to_users = #{publicToUsers,jdbcType=VARCHAR},
+      read_number = #{readNumber,jdbcType=INTEGER},
+      simple_content = #{simpleContent,jdbcType=VARCHAR},
+      last_edit_time = #{lastEditTime,jdbcType=VARCHAR},
+      first_img = #{firstImg,jdbcType=VARCHAR},
+      content = #{content,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lrh.model.Blog" >
+    update blog
+    set user_id = #{userId,jdbcType=INTEGER},
+      title = #{title,jdbcType=VARCHAR},
+      status = #{status,jdbcType=SMALLINT},
+      public_type = #{publicType,jdbcType=SMALLINT},
+      type = #{type,jdbcType=VARCHAR},
+      add_time = #{addTime,jdbcType=VARCHAR},
+      public_to_users = #{publicToUsers,jdbcType=VARCHAR},
+      read_number = #{readNumber,jdbcType=INTEGER},
+      simple_content = #{simpleContent,jdbcType=VARCHAR},
+      last_edit_time = #{lastEditTime,jdbcType=VARCHAR},
+      first_img = #{firstImg,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  
+   <!-- 多条件分页查询 -->
+  <select id="findBlogByParam" resultMap="myBlogs" parameterType="com.lrh.model.Blog">
+  	select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    ,t.type_name
+    from blog b
+    left join data_type t on b.type=t.type_code
+    where 1=1
+    <if test="userId!=null and userId!=0">
+    	and b.user_id = #{userId,jdbcType=INTEGER}
+    </if>
+    <if test="status!=null">
+    	and b.status = #{status,jdbcType=SMALLINT}
+    </if>
+    <if test="publicType!=null">
+    	and b.public_type = #{publicType,jdbcType=SMALLINT}
+    </if>
+    <if test="type!=null and type!=''">
+    	and b.type = #{type,jdbcType=VARCHAR}
+    </if>
+    <if test="startTime!=null and startTime!=''">
+    	and b.last_edit_time &gt;= #{startTime,jdbcType=VARCHAR}
+    </if>
+    <if test="endTime!=null and endTime!=''">
+    	and b.last_edit_time &lt;= #{endTime,jdbcType=VARCHAR}
+    </if>
+    <if test="title!=null and title!=''">
+    	and b.title like '%${title}%'
+    </if>
+    order by b.last_edit_time desc
+    <if test="start !=null and max !=null">
+    	limit #{start},#{max}
+    </if>
+  </select>
+  <select id="getCountByParam" resultType="java.lang.Integer" parameterType="com.lrh.model.Blog">
+  	select count(DISTINCT id)
+    from blog 
+    where 1=1
+    <if test="userId!=null and userId!=0">
+    	and user_id = #{userId,jdbcType=INTEGER}
+    </if>
+    <if test="status!=null">
+    	and status = #{status,jdbcType=SMALLINT}
+    </if>
+    <if test="publicType!=null">
+    	and public_type = #{publicType,jdbcType=SMALLINT}
+    </if>
+    <if test="type!=null and type!=''">
+    	and type = #{type,jdbcType=VARCHAR}
+    </if>
+    <if test="startTime!=null and startTime!=''">
+    	and last_edit_time &gt;= #{startTime,jdbcType=VARCHAR}
+    </if>
+    <if test="endTime!=null and endTime!=''">
+    	and last_edit_time &lt;= #{endTime,jdbcType=VARCHAR}
+    </if>
+    <if test="title!=null and title!=''">
+    	and title like '%${title}%'
+    </if>
+    
+  </select>
+  
+  <delete id="deleteByIdAndUserId" parameterType="com.lrh.model.Blog">
+  	delete from blog
+    where id = #{id,jdbcType=BIGINT} and user_id = #{userId,jdbcType=INTEGER}
+  </delete>
+  
+  <select id="getReadNum" parameterType="java.lang.Long" resultType="java.lang.Integer">
+  	select read_number from blog where id = #{id,jdbcType=BIGINT}
+  </select>
+  
+  <!-- 批量删除 -->
+  <delete id="deleteByIdsAndUserId" parameterType="java.util.Map">
+  	delete from blog
+    where user_id = #{userId,jdbcType=INTEGER} and 
+    id in
+    <foreach collection="ids" open="(" separator="," close=")" item="id">
+	     #{id} 
+    </foreach>
+  </delete>
+</mapper>

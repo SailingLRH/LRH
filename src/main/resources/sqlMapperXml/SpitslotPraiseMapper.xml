@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lrh.mapper.SpitslotPraiseMapper" >
+  <resultMap id="BaseResultMap" type="com.lrh.model.Praise" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="data_id" property="dataId" jdbcType="BIGINT" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="user_ip" property="userIp" jdbcType="VARCHAR" />
+    <result column="time" property="time" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, data_id, user_id, user_ip, time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from spitslot_praise
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from spitslot_praise
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.lrh.model.Praise" >
+    <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into spitslot_praise (data_id, user_id, user_ip, 
+      time)
+    values (#{dataId,jdbcType=BIGINT}, #{userId,jdbcType=INTEGER}, #{userIp,jdbcType=VARCHAR}, 
+      #{time,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lrh.model.Praise" >
+    <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into spitslot_praise
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="dataId != null" >
+        data_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="userIp != null" >
+        user_ip,
+      </if>
+      <if test="time != null" >
+        time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="dataId != null" >
+        #{dataId,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="userIp != null" >
+        #{userIp,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null" >
+        #{time,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lrh.model.Praise" >
+    update spitslot_praise
+    <set >
+      <if test="dataId != null" >
+        data_id = #{dataId,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="userIp != null" >
+        user_ip = #{userIp,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null" >
+        time = #{time,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lrh.model.Praise" >
+    update spitslot_praise
+    set data_id = #{dataId,jdbcType=BIGINT},
+      user_id = #{userId,jdbcType=INTEGER},
+      user_ip = #{userIp,jdbcType=VARCHAR},
+      time = #{time,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  
+  <!-- 查询一条吐槽赞的数量 -->
+  <select id="getSpitslotPraiseCount" resultType="java.lang.Integer" parameterType="java.lang.Long" >
+    select 
+    count(id)
+    from spitslot_praise
+    where data_id = #{dataId,jdbcType=BIGINT}
+  </select>
+  
+  <!-- 查询是否已经点过赞 -->
+  <select id="checkHasPraised" parameterType="com.lrh.model.Praise" resultType="java.lang.Integer">
+  	select count(id) from spitslot_praise
+  	where  data_id = #{dataId,jdbcType=BIGINT}
+  	and (TIMESTAMPDIFF(SECOND,#{nowTime,jdbcType=VARCHAR},time) >0)
+  	<choose>
+  		<when test="userId !=null">
+  			and user_id = #{userId,jdbcType=INTEGER}
+  		</when>
+  		<otherwise>
+  			and user_ip = #{userIp,jdbcType=VARCHAR}
+  		</otherwise>
+  	</choose>
+  </select>
+  
+</mapper>

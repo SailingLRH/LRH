@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lrh.mapper.RoleMapper" >
+  <resultMap id="BaseResultMap" type="com.lrh.model.Role" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="role_name" property="roleName" jdbcType="VARCHAR" />
+    <result column="system" property="system" jdbcType="BIT" />
+    <result column="music" property="music" jdbcType="BIT" />
+    <result column="video" property="video" jdbcType="BIT" />
+    <result column="photo" property="photo" jdbcType="BIT" />
+    <result column="product" property="product" jdbcType="BIT" />
+    <result column="speak" property="speak" jdbcType="BIT" />
+    <result column="blog" property="blog" jdbcType="BIT" />
+    <result column="sport" property="sport" jdbcType="BIT" />
+    <result column="home" property="home" jdbcType="BIT" />
+    <result column="game" property="game" jdbcType="BIT" />
+    <result column="leave_message" property="leaveMessage" jdbcType="BIT" />
+    <result column="scenery" property="scenery" jdbcType="BIT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, role_name, system, music, video, photo, product, speak, blog, sport, home, game, 
+    leave_message, scenery
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from role
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from role
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lrh.model.Role" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into role (role_name, system, music, 
+      video, photo, product, speak, 
+      blog, sport, home, game, 
+      leave_message, scenery)
+    values (#{roleName,jdbcType=VARCHAR}, #{system,jdbcType=BIT}, #{music,jdbcType=BIT}, 
+      #{video,jdbcType=BIT}, #{photo,jdbcType=BIT}, #{product,jdbcType=BIT}, #{speak,jdbcType=BIT}, 
+      #{blog,jdbcType=BIT}, #{sport,jdbcType=BIT}, #{home,jdbcType=BIT}, #{game,jdbcType=BIT}, 
+      #{leaveMessage,jdbcType=BIT}, #{scenery,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lrh.model.Role" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into role
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="roleName != null" >
+        role_name,
+      </if>
+      <if test="system != null" >
+        system,
+      </if>
+      <if test="music != null" >
+        music,
+      </if>
+      <if test="video != null" >
+        video,
+      </if>
+      <if test="photo != null" >
+        photo,
+      </if>
+      <if test="product != null" >
+        product,
+      </if>
+      <if test="speak != null" >
+        speak,
+      </if>
+      <if test="blog != null" >
+        blog,
+      </if>
+      <if test="sport != null" >
+        sport,
+      </if>
+      <if test="home != null" >
+        home,
+      </if>
+      <if test="game != null" >
+        game,
+      </if>
+      <if test="leaveMessage != null" >
+        leave_message,
+      </if>
+      <if test="scenery != null" >
+        scenery,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="roleName != null" >
+        #{roleName,jdbcType=VARCHAR},
+      </if>
+      <if test="system != null" >
+        #{system,jdbcType=BIT},
+      </if>
+      <if test="music != null" >
+        #{music,jdbcType=BIT},
+      </if>
+      <if test="video != null" >
+        #{video,jdbcType=BIT},
+      </if>
+      <if test="photo != null" >
+        #{photo,jdbcType=BIT},
+      </if>
+      <if test="product != null" >
+        #{product,jdbcType=BIT},
+      </if>
+      <if test="speak != null" >
+        #{speak,jdbcType=BIT},
+      </if>
+      <if test="blog != null" >
+        #{blog,jdbcType=BIT},
+      </if>
+      <if test="sport != null" >
+        #{sport,jdbcType=BIT},
+      </if>
+      <if test="home != null" >
+        #{home,jdbcType=BIT},
+      </if>
+      <if test="game != null" >
+        #{game,jdbcType=BIT},
+      </if>
+      <if test="leaveMessage != null" >
+        #{leaveMessage,jdbcType=BIT},
+      </if>
+      <if test="scenery != null" >
+        #{scenery,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lrh.model.Role" >
+    update role
+    <set >
+      <if test="roleName != null" >
+        role_name = #{roleName,jdbcType=VARCHAR},
+      </if>
+      <if test="system != null" >
+        system = #{system,jdbcType=BIT},
+      </if>
+      <if test="music != null" >
+        music = #{music,jdbcType=BIT},
+      </if>
+      <if test="video != null" >
+        video = #{video,jdbcType=BIT},
+      </if>
+      <if test="photo != null" >
+        photo = #{photo,jdbcType=BIT},
+      </if>
+      <if test="product != null" >
+        product = #{product,jdbcType=BIT},
+      </if>
+      <if test="speak != null" >
+        speak = #{speak,jdbcType=BIT},
+      </if>
+      <if test="blog != null" >
+        blog = #{blog,jdbcType=BIT},
+      </if>
+      <if test="sport != null" >
+        sport = #{sport,jdbcType=BIT},
+      </if>
+      <if test="home != null" >
+        home = #{home,jdbcType=BIT},
+      </if>
+      <if test="game != null" >
+        game = #{game,jdbcType=BIT},
+      </if>
+      <if test="leaveMessage != null" >
+        leave_message = #{leaveMessage,jdbcType=BIT},
+      </if>
+      <if test="scenery != null" >
+        scenery = #{scenery,jdbcType=BIT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lrh.model.Role" >
+    update role
+    set role_name = #{roleName,jdbcType=VARCHAR},
+      system = #{system,jdbcType=BIT},
+      music = #{music,jdbcType=BIT},
+      video = #{video,jdbcType=BIT},
+      photo = #{photo,jdbcType=BIT},
+      product = #{product,jdbcType=BIT},
+      speak = #{speak,jdbcType=BIT},
+      blog = #{blog,jdbcType=BIT},
+      sport = #{sport,jdbcType=BIT},
+      home = #{home,jdbcType=BIT},
+      game = #{game,jdbcType=BIT},
+      leave_message = #{leaveMessage,jdbcType=BIT},
+      scenery = #{scenery,jdbcType=BIT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

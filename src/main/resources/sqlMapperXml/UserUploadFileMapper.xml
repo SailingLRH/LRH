@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lrh.mapper.UserUploadFileMapper" >
+  <resultMap id="BaseResultMap" type="com.lrh.model.UserUploadFile" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="file_type" property="fileType" jdbcType="INTEGER" />
+    <result column="file_url" property="fileUrl" jdbcType="VARCHAR" />
+    <result column="file_name" property="fileName" jdbcType="VARCHAR" />
+    <result column="upload_time" property="uploadTime" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="file_desc" property="fileDesc" jdbcType="VARCHAR" />
+    <result column="file_size" property="fileSize" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, file_type, file_url, file_name, upload_time, user_id, file_desc, file_size
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from user_upload_file
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from user_upload_file
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.lrh.model.UserUploadFile" >
+    <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into user_upload_file (file_type, file_url, file_name, 
+      upload_time, user_id, file_desc, 
+      file_size)
+    values (#{fileType,jdbcType=INTEGER}, #{fileUrl,jdbcType=VARCHAR}, #{fileName,jdbcType=VARCHAR}, 
+      #{uploadTime,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}, #{fileDesc,jdbcType=VARCHAR}, 
+      #{fileSize,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lrh.model.UserUploadFile" >
+    <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into user_upload_file
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="fileType != null" >
+        file_type,
+      </if>
+      <if test="fileUrl != null" >
+        file_url,
+      </if>
+      <if test="fileName != null" >
+        file_name,
+      </if>
+      <if test="uploadTime != null" >
+        upload_time,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="fileDesc != null" >
+        file_desc,
+      </if>
+      <if test="fileSize != null" >
+        file_size,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="fileType != null" >
+        #{fileType,jdbcType=INTEGER},
+      </if>
+      <if test="fileUrl != null" >
+        #{fileUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="fileName != null" >
+        #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="uploadTime != null" >
+        #{uploadTime,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="fileDesc != null" >
+        #{fileDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="fileSize != null" >
+        #{fileSize,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lrh.model.UserUploadFile" >
+    update user_upload_file
+    <set >
+      <if test="fileType != null" >
+        file_type = #{fileType,jdbcType=INTEGER},
+      </if>
+      <if test="fileUrl != null" >
+        file_url = #{fileUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="fileName != null" >
+        file_name = #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="uploadTime != null" >
+        upload_time = #{uploadTime,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="fileDesc != null" >
+        file_desc = #{fileDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="fileSize != null" >
+        file_size = #{fileSize,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lrh.model.UserUploadFile" >
+    update user_upload_file
+    set file_type = #{fileType,jdbcType=INTEGER},
+      file_url = #{fileUrl,jdbcType=VARCHAR},
+      file_name = #{fileName,jdbcType=VARCHAR},
+      upload_time = #{uploadTime,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=INTEGER},
+      file_desc = #{fileDesc,jdbcType=VARCHAR},
+      file_size = #{fileSize,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  
+  <!-- 通过文件路径删除数据 -->
+   <delete id="deleteByFileUrl" parameterType="java.lang.String" >
+    delete from user_upload_file
+    where file_url = #{fileUrl,jdbcType=VARCHAR}
+  </delete>
+  
+  <!-- 查询吐槽关联的图片 -->
+  <select id="findImgsBySpitslotId" resultMap="BaseResultMap" parameterType="java.lang.Long">
+  	select f.* from user_upload_file f,spitslot s,spitslot_upload su
+  	where s.id=su.spitslot_id and f.id=su.file_id and s.id=#{id,jdbcType=BIGINT}
+  </select>
+</mapper>

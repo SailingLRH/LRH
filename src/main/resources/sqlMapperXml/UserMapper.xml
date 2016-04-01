@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lrh.mapper.UserMapper" >
+  <resultMap id="BaseResultMap" type="com.lrh.model.User" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="role_id" property="roleId" jdbcType="INTEGER" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="nick_name" property="nickName" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="sign" property="sign" jdbcType="VARCHAR" />
+    <result column="action_code" property="actionCode" jdbcType="VARCHAR" />
+    <result column="is_action" property="isAction" jdbcType="BIT" />
+    <result column="regist_time" property="registTime" jdbcType="VARCHAR" />
+    <result column="last_login_time" property="lastLoginTime" jdbcType="VARCHAR" />
+    <result column="img_url" property="photoUrl" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    u.id, u.role_id, u.user_name, u.password, u.nick_name, u.email, u.sign, u.action_code, 
+    u.is_action, u.regist_time, u.last_login_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />,ui.img_url
+    from user u
+    LEFT OUTER JOIN user_head_img ui ON u.id=ui.user_id AND ui.is_default=1
+    where u.id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from user
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lrh.model.User" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into user (role_id, user_name, password, 
+      nick_name, email, 
+      sign, action_code, is_action, 
+      regist_time, last_login_time)
+    values (#{roleId,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{nickName,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
+      #{sign,jdbcType=VARCHAR}, #{actionCode,jdbcType=VARCHAR}, #{isAction,jdbcType=BIT}, 
+      #{registTime,jdbcType=VARCHAR}, #{lastLoginTime,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lrh.model.User" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="roleId != null" >
+        role_id,
+      </if>
+      <if test="userName != null" >
+        user_name,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="nickName != null" >
+        nick_name,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="sign != null" >
+        sign,
+      </if>
+      <if test="actionCode != null" >
+        action_code,
+      </if>
+      <if test="isAction != null" >
+        is_action,
+      </if>
+      <if test="registTime != null" >
+        regist_time,
+      </if>
+      <if test="lastLoginTime != null" >
+        last_login_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="roleId != null" >
+        #{roleId,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="nickName != null" >
+        #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="sign != null" >
+        #{sign,jdbcType=VARCHAR},
+      </if>
+      <if test="actionCode != null" >
+        #{actionCode,jdbcType=VARCHAR},
+      </if>
+      <if test="isAction != null" >
+        #{isAction,jdbcType=BIT},
+      </if>
+      <if test="registTime != null" >
+        #{registTime,jdbcType=VARCHAR},
+      </if>
+      <if test="lastLoginTime != null" >
+        #{lastLoginTime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lrh.model.User" >
+    update user
+    <set >
+      <if test="roleId != null" >
+        role_id = #{roleId,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null" >
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="nickName != null" >
+        nick_name = #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="sign != null" >
+        sign = #{sign,jdbcType=VARCHAR},
+      </if>
+      <if test="actionCode != null" >
+        action_code = #{actionCode,jdbcType=VARCHAR},
+      </if>
+      <if test="isAction != null" >
+        is_action = #{isAction,jdbcType=BIT},
+      </if>
+      <if test="registTime != null" >
+        regist_time = #{registTime,jdbcType=VARCHAR},
+      </if>
+      <if test="lastLoginTime != null" >
+        last_login_time = #{lastLoginTime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lrh.model.User" >
+    update user
+    set role_id = #{roleId,jdbcType=INTEGER},
+      user_name = #{userName,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      nick_name = #{nickName,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      sign = #{sign,jdbcType=VARCHAR},
+      action_code = #{actionCode,jdbcType=VARCHAR},
+      is_action = #{isAction,jdbcType=BIT},
+      regist_time = #{registTime,jdbcType=VARCHAR},
+      last_login_time = #{lastLoginTime,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 用户登录 -->
+  <select id="selectByAccount" parameterType="java.util.Map" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />,ui.img_url
+    from user u
+    LEFT OUTER JOIN user_head_img ui ON u.id=ui.user_id AND ui.is_default=1
+    where u.is_action = 1
+    and
+    (lower(u.user_name) = #{account,jdbcType=VARCHAR} or lower(u.email) = #{account,jdbcType=VARCHAR})
+    and
+    u.password = #{password,jdbcType=VARCHAR}
+  </select>
+  <!-- 按用户名或邮箱查询:检查账号或邮箱号是否已经被注册过 -->
+  <select id="checkAccount" parameterType="java.util.Map" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from user u
+    where 1=1
+    <if test="userName != null">
+    	and lower(u.user_name) = #{userName,jdbcType=VARCHAR}
+    </if>
+    <if test="email != null">
+    	and lower(u.email) = #{email,jdbcType=VARCHAR}
+    </if>
+  </select>
+  <!-- 按用户名或邮箱查询 -->
+  <select id="getUserByUserNameOrEmail" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />,ui.img_url
+    from user u
+    LEFT OUTER JOIN user_head_img ui ON u.id=ui.user_id AND ui.is_default=1
+    where u.is_action = 1
+    and (lower(u.user_name) = #{account,jdbcType=VARCHAR} or lower(u.email) = #{account,jdbcType=VARCHAR})
+  </select>
+</mapper>

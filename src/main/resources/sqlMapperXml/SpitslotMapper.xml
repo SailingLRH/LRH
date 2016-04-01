@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lrh.mapper.SpitslotMapper" >
+  <resultMap id="BaseResultMap" type="com.lrh.model.Spitslot" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="add_time" property="addTime" jdbcType="VARCHAR" />
+    <result column="public_type" property="publicType" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, content, user_id, add_time, public_type
+  </sql>
+  
+  <!-- 用于一对多关联查询的返回结果 -->
+  <resultMap id="spitslotWithImgsMap" extends="BaseResultMap" type="com.lrh.model.Spitslot" >
+  	<association property="user" column="user_id" javaType="com.lrh.model.User" 
+  		select="com.lrh.mapper.UserMapper.selectByPrimaryKey"></association>
+  	
+  	<association property="praiseCount" column="id" javaType="java.lang.Integer" 
+  		select="com.lrh.mapper.SpitslotPraiseMapper.getSpitslotPraiseCount"></association>
+  		
+  	<association property="commentsCount" column="id" javaType="java.lang.Integer" 
+  		select="com.lrh.mapper.SpitslotCommentMapper.getCommentCount"></association>
+  		
+	<collection property="imgList" column="id" ofType="com.lrh.model.UserUploadFile" 
+	    select="com.lrh.mapper.UserUploadFileMapper.findImgsBySpitslotId" javaType="ArrayList" >
+	</collection>
+	
+	<collection property="comments" column="id" ofType="com.lrh.view.SpitslotCommentView" 
+	    select="com.lrh.mapper.SpitslotCommentMapper.findFiveComments" javaType="ArrayList" >
+	</collection>
+	
+  </resultMap>
+  
+  <select id="selectByPrimaryKey" resultMap="spitslotWithImgsMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from spitslot
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from spitslot
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.lrh.model.Spitslot" >
+    <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into spitslot (content, user_id, add_time, 
+      public_type)
+    values (#{content,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}, #{addTime,jdbcType=VARCHAR}, 
+      #{publicType,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lrh.model.Spitslot" >
+    <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into spitslot
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="addTime != null" >
+        add_time,
+      </if>
+      <if test="publicType != null" >
+        public_type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="addTime != null" >
+        #{addTime,jdbcType=VARCHAR},
+      </if>
+      <if test="publicType != null" >
+        #{publicType,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lrh.model.Spitslot" >
+    update spitslot
+    <set >
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="addTime != null" >
+        add_time = #{addTime,jdbcType=VARCHAR},
+      </if>
+      <if test="publicType != null" >
+        public_type = #{publicType,jdbcType=TINYINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lrh.model.Spitslot" >
+    update spitslot
+    set content = #{content,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=INTEGER},
+      add_time = #{addTime,jdbcType=VARCHAR},
+      public_type = #{publicType,jdbcType=TINYINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  
+  <!-- 条件+分页查询 -->
+  <select id="findSpitslot" parameterType="com.lrh.model.Spitslot" resultMap="spitslotWithImgsMap">
+  	select 
+  	<include refid="Base_Column_List" />
+    from spitslot
+    where 1=1
+    <if test="notIncludeIdSet !=null">
+    	and id not in
+    	<foreach collection="notIncludeIdSet" open="(" separator="," close=")" item="notIncludeId">
+    	 	#{notIncludeId,jdbcType=VARCHAR}
+    	 </foreach>
+    </if>
+    <if test="publicType !=null and publicType !=''">
+    	and public_type = #{publicType,jdbcType=TINYINT}
+    </if>
+    
+    <if test="startTime !=null and startTime !=''">
+    	and add_time &gt;= #{startTime,jdbcType=VARCHAR}
+    </if>
+    
+    <if test="endTime !=null and endTime !=''">
+    	and add_time &gt;= #{endTime,jdbcType=VARCHAR}
+    </if>
+    <if test="userId != null" >
+        and user_id = #{userId,jdbcType=INTEGER}
+    </if>
+    order by add_time desc
+    limit #{start},#{max}
+  </select>
+  <!-- 条件查询数据 -->
+  <select id="getSpitslotCount" parameterType="com.lrh.model.Spitslot" resultType="java.lang.Long">
+  	select 
+  	count(id)
+    from spitslot
+    where 1=1
+    <if test="notIncludeIdSet !=null">
+    	and id not in
+    	<foreach collection="notIncludeIdSet" open="(" separator="," close=")" item="notIncludeId">
+    	 	#{notIncludeId,jdbcType=VARCHAR}
+    	 </foreach>
+    </if>
+    <if test="publicType !=null and publicType !=''">
+    	and public_type = #{publicType,jdbcType=TINYINT}
+    </if>
+    
+    <if test="startTime !=null and startTime !=''">
+    	and add_time &gt;= #{startTime,jdbcType=VARCHAR}
+    </if>
+    
+    <if test="endTime !=null and endTime !=''">
+    	and add_time &gt;= #{endTime,jdbcType=VARCHAR}
+    </if>
+    <if test="userId != null" >
+        and user_id = #{userId,jdbcType=INTEGER}
+    </if>
+  </select>
+  
+  <!-- 通过userId和 id删除一条数据 -->
+  <delete id="deleteByIdAndUserId" parameterType="com.lrh.model.Spitslot">
+  	delete from spitslot where id = #{id,jdbcType=BIGINT} and  user_id = #{userId,jdbcType=INTEGER}
+  </delete>
+</mapper>

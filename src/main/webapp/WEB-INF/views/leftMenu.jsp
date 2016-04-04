@@ -50,7 +50,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    	</div>
 		    	
 		    	<div class="menu_item">
-		    		<a href="/chat/index" class="menu_item11"><span>在线聊天</span></a>
+		    		<a href="/chat/index" class="menu_item12"><span>在线聊天</span></a>
 		    	</div>
 	    	</div>
 	    </div>

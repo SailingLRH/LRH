@@ -44,7 +44,6 @@
 		<jsp:include page="head.jsp"></jsp:include>
 		<jsp:include page="leftMenu.jsp"></jsp:include>
 		<div class="right_all">
-			<!-- 列表区 -->
 			<div class="blog_detail win">
 	    		<div class="win_head">
 	   				<p class="win_head_icon"><img src="/loadImg?imgPath=${requestScope.blog.user.photoUrl}"/><p>

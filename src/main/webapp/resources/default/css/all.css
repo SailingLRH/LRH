@@ -185,6 +185,7 @@ div.nickName .noticeCount{display: none;width: 27px;height: 27px;background: url
 .menu_item a.menu_item9{background: url("../img/icon/menu_icon/menu-icon91.png") 15px 50% no-repeat transparent;}
 .menu_item a.menu_item10{background: url("../img/icon/menu_icon/menu-icon101.png") 15px 50% no-repeat transparent;}
 .menu_item a.menu_item11{background: url("../img/icon/menu_icon/menu-icon111.png") 15px 50% no-repeat transparent;}
+.menu_item a.menu_item12{background: url("../img/icon/menu_icon/menu-icon121.png") 15px 50% no-repeat transparent;}
 
 /*当前模块的菜单*/
 .left_menu_all .menu_this{width: 150px;height: 40px;background: url("../img/bg/menu_item_bg3.png") no-repeat transparent;margin-top: 1px;}

@@ -124,4 +124,10 @@ public class UserServiceImpl implements UserService{
 		return imgDao.deleteByPrimaryKey(id)>0;
 	}
 
+	@Override
+	public User getUserByUserName(String userName)
+	{
+		return userDao.getUserByUserName(userName);
+	}
+
 }

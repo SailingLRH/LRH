@@ -2,6 +2,8 @@ package com.lrh.model;
 
 import java.io.Serializable;
 
+import com.lrh.controller.UserController;
+
 public class User implements Serializable {
     private Integer id;
 
@@ -28,6 +30,8 @@ public class User implements Serializable {
     private String lastLoginTime;
     
     private String showName;				//如果存在昵称,则显示昵称,否则显示用户名
+    
+    private Boolean isOnline;				//是否在线 true:在线	false:离线
 
     private static final long serialVersionUID = 1L;
 
@@ -127,7 +131,22 @@ public class User implements Serializable {
         this.lastLoginTime = lastLoginTime == null ? null : lastLoginTime.trim();
     }
 
-    @Override
+    public Boolean getIsOnline()
+	{
+    	if(UserController.userOnlineMap.containsKey(userName))
+    		isOnline = true;
+    	else 
+    		isOnline = false;
+    	
+		return isOnline;
+	}
+
+	public void setIsOnline(Boolean isOnline)
+	{
+		this.isOnline = isOnline;
+	}
+
+	@Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append(getClass().getSimpleName());

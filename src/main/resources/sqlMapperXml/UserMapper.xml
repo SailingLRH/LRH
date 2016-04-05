@@ -198,4 +198,13 @@
     where u.is_action = 1
     and (lower(u.user_name) = #{account,jdbcType=VARCHAR} or lower(u.email) = #{account,jdbcType=VARCHAR})
   </select>
+  
+  <!-- 按用户名查询 -->
+  <select id="getUserByUserName" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from user u
+    where u.is_action = 1
+    and lower(u.user_name) = #{userName,jdbcType=VARCHAR}
+  </select>
 </mapper>

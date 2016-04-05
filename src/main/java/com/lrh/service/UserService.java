@@ -104,4 +104,14 @@ public interface UserService {
 	 * @param id
 	 */
 	public Boolean removeUserImgByImgId(Integer id);
+
+
+	/**
+	 * 通过用户名查询用户信息
+	 * @author Sailing_LRH
+	 * @since 2016年4月5日
+	 * @param userName
+	 * @return User
+	 */
+	public User getUserByUserName(String userName);
 }

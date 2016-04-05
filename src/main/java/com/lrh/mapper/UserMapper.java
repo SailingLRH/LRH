@@ -18,4 +18,6 @@ public interface UserMapper {
     User checkAccount(Map<String, Object> param);
     
     User getUserByUserNameOrEmail(String account);
+    
+    User getUserByUserName(String userName);
 }

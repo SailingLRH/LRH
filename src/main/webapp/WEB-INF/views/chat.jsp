@@ -33,7 +33,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    <jsp:include page="head.jsp"></jsp:include>
 	    <jsp:include page="leftMenu.jsp"></jsp:include>
 	    <div class="right_all">
-	    	
+	    	<div class="win"></div>
 	    </div>
 	    <div class="clear"></div>
     </div>

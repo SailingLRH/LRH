@@ -33,7 +33,29 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    <jsp:include page="head.jsp"></jsp:include>
 	    <jsp:include page="leftMenu.jsp"></jsp:include>
 	    <div class="right_all">
-	    	<div class="win"></div>
+	    	<div class="search_user win">
+	    		<div class="win_head">
+	   				<p class="win_head_icon"><p>
+	   				<p class="win_head_title">搜索网友</p>
+	    			
+	   				<p class="win_controll_close_btn win_controll_btn"><a href="javaScript:void(0)" class="able" onclick="openWriteBlogWin()"></a><p>
+	   				<p class="win_controll_max_btn win_controll_btn"><a href="javaScript:void(0)"></a></p>
+	   				<p class="win_controll_min_btn win_controll_btn"><a href="javaScript:void(0)" class="able"></a><p>
+	    			
+	    			<div class="clear"></div>
+	    		</div>
+	    		
+	    		<div class="win_body">
+	    			<div class="win_body_all">
+	    				<div class="search_input">
+	    					<input type="text"/>
+	    					<p><a>搜索</a></p>
+	    					<I class="help_text">输入网友账号/邮箱号/昵称</I>
+	    				</div>
+	    			</div>
+	    		</div>
+	    		<div class="win_bottom"></div>
+	    	</div>
 	    </div>
 	    <div class="clear"></div>
     </div>

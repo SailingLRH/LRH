@@ -42,6 +42,12 @@ public class ChatOnlineController extends BaseController{
 	@Autowired
 	NoticeMessageService noticeService;
 	
+	@RequestMapping(value = "/index")
+	public String index(HttpServletRequest request,
+			HttpServletResponse response) {
+	    return "chat";
+	}
+	
 	//发送新消息
 	@RequestMapping(value = "/send")
 	public String send(HttpServletRequest request,

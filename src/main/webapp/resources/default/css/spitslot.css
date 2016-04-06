@@ -1,0 +1,127 @@
+@CHARSET "UTF-8";
+.publish_spitslot .win_head_icon{background: url("../img/icon/25_25_edit.png") 50% 50% no-repeat transparent;}
+.content_and_btn{margin: 10px 10px 3px 10px;}
+.spitslot_content{display: inline;float: left;height: 100px;margin-right: 5px;border: 1px #c0c0c0 solid;}    
+.spitslot_content textarea{outline: none;border: none;height: 90px;margin: 5px;
+	background: transparent;resize: none;}
+.spitslot_btn{display: inline;float: right;width: 100px;height: 100px;}
+.spitslot_btn a{width: 100px;height: 100px;display: block;}
+.spitslot_btn a.sure{background: url("../img/icon/100_100_sure.png") transparent no-repeat;}
+.spitslot_btn a.waitting{background: url("../img/icon/100_100_waitting.png") transparent no-repeat;}
+
+.spitslot_upload_imgs{margin:0 10px 10px 10px;border: 1px #c0c0c0 solid;min-height: 100px;padding-bottom:10px;}
+/*表情栏*/
+.spitslot_upload_imgs .emoji_bar{max-height:52px;min-height:26px;padding: 5px;border-bottom: 1px solid #c0c0c0;}
+.spitslot_upload_imgs .emoji_bar p{width: 24px;height: 24px;border: #c0c0c0 1px solid;}
+.spitslot_upload_imgs .emoji_bar p a{display: block;width: 24px;height: 24px;background-repeat: no-repeat;}
+
+.add_img_bt{width: 100px;height: 100px;display: inline;float: left;margin:10px 0 0 10px;}
+.add_img_bt a{width: 100px;height: 100px;display: block;background: url("../img/icon/100_100_add1.png") no-repeat;}
+.add_img_bt a:HOVER {background: url("../img/icon/100_100_add2.png") no-repeat;}
+
+.spitslot_upload_img{width: 100px;height: 100px;margin:10px 0 0 10px;position: relative;
+	display: inline;float: left;overflow: hidden;}
+.spitslot_upload_img .temp_and_new_upload{width: 200px;height: 100px;position: relative;}
+.temp_and_new_upload p{width: 100px;height: 100px;display: inline;float: left;}
+.temp_and_new_upload p img{width: 100px;height: 100px;}
+.spitslot_upload_img .process_zz_div{background: url("../img/bg/zz_bg.png");width: 100px;height: 100px;position: absolute;
+	z-index: 2000;right: 0px;top:0px;}
+.spitslot_upload_img .percent_text{position: absolute;z-index: 2001;top: 40px;line-height: 20px;height: 20px;
+	text-align: center;color:cyan;width: 100px;text-shadow: 0 0 5px cyan;}
+.spitslot_upload_img a.remove_img_btn{width: 30px;height: 30px;display: block;position: absolute;z-index: 2050;top: -1px;left: 70px;
+	background: url("../img/icon/30_30_delete1.png") no-repeat transparent;}
+.spitslot_upload_img a.remove_img_btn:HOVER {background: url("../img/icon/30_30_delete2.png") no-repeat transparent;}
+#spitslot_text_length_limit{margin: 0 0 15px 10px;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

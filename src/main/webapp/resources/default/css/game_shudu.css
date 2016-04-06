@@ -1,0 +1,227 @@
+@CHARSET "UTF-8";
+/*游戏清单*/
+.game_menu .win_head_icon{background: url("../img/icon/25_25_list.png") 50% 50% no-repeat transparent;}
+.game_rule .win_head_icon{background: url("../img/shudu/rule_icon.png") 50% 50% no-repeat transparent;}
+/*返回按钮*/
+.game_win .win_head_icon a.back_btn{background: url("../img/shudu/left2.png") 50% 50% no-repeat transparent;
+	width: 26px;height: 26px;margin: 2px;display: block;}
+	
+.win_body_all .menu_item_p{width: 100px;height: 135px;display: inline;margin: 15px 0 0 15px;float: left;}
+.win_body_all .menu_item_p a{width: 100px;display:block;}
+.win_body_all .menu_item_p a.menu_icon{height: 100px;background-color: #ffffff;
+	/*阴影*/
+	box-shadow:3px 3px 5px #888888;
+    -moz-box-shadow:3px 3px 5px #888888;
+    -webkit-box-shadow:3px 3px 5px #888888;}
+.win_body_all .menu_item_p a.menu_icon img{width: 100px;height: 100px;}
+.win_body_all .menu_item_p a.menu_title{height: 30px;font-size: 12px;line-height: 15px;
+	text-align: center;overflow: hidden;padding-top: 5px;}
+
+/*数独关卡*/
+.shudu_level .win_head_icon{background: url("../img/shudu/shudu_icon.png") 50% 50% no-repeat transparent;}
+.level_p{display: inline;float: left;margin: 15px 0 0 15px;
+	padding: 3px;background-color: #33ccff;}
+.level_p a{display: block;width: 100px;height: 40px;border: 1px #ffffff solid;
+	line-height: 40px;text-align: center;color: #ffffff;}	
+.level_p a:HOVER{background: #ff9933;}
+/*数独*/
+
+.game{width: 100%;margin: 20px 0;}
+.game .game_main{width: 378px;position: relative;left: 50%;margin-left: -189px;}
+/*宫 */
+.game_main .court{float: left;display: inline;}
+div.left_top{border: 3px #000000 solid;border-right: none;border-bottom: none;}
+div.middle_top{border: 3px #000000 solid;border-bottom: none;}
+div.right_top{border: 3px #000000 solid;border-left: none;border-bottom: none;}
+
+div.left_middle{border: 3px #000000 solid;border-right: none;}
+div.middle_middle{border: 3px #000000 solid;}
+div.right_middle{border: 3px #000000 solid;border-left: none;}
+
+div.left_bottom{border: 3px #000000 solid;border-top: none;border-right: none;}
+div.middle_bottom{border: 3px #000000 solid;border-top: none;}
+div.right_bottom{border: 3px #000000 solid;border-top: none;border-left: none;}
+/*单元格*/
+.cell{width: 40px;height:40px;float: left;display: inline;
+	text-align: center;line-height: 40px;}
+.son_left_top{}
+.son_middle_top{border: 1px #550055 dashed;border-bottom: none;border-top: none;}
+.son_right_top{}
+
+.son_left_middle{border: 1px #550055 dashed;border-right: none;border-left: none;}
+.son_middle_middle{border: 1px #550055 dashed;}
+.son_right_middle{border: 1px #550055 dashed;border-left: none;border-right: none;}
+
+.son_left_bottom{}
+.son_middle_bottom{border: 1px #550055 dashed;border-top: none;border-bottom: none;}
+.son_right_bottom{}
+/*原始数字单元格*/
+.game_main .court .init .number_p{background: #ff9900;color: #ffffff;font-weight: bolder;cursor: default;
+	width: 40px;height: 40px;}
+/*普通单元格*/
+.game_main .court .normal{position: relative;}
+.game_main .court .normal .number_p{background: #f2f2f2;color: #222222;font-weight: bold;cursor: pointer;
+	width: 40px;height: 40px;}
+/*浮悬备选数字div*/
+.answer_div{position: absolute;top: 50px;left: -43px;z-index: 9999;border: 2px #2084E8 solid;width:126px;
+	background-color:#A0CC61;color:#ffffff;}
+.answer_div .jiantou{background: transparent url("../img/shudu/jiantou_up.png") 50% 0 no-repeat;
+	width: 126px;height: 15px;position: absolute;top:-15.5px;left: 0;z-index: 10000;}
+.answer_div2{position: absolute;top: -135px;left: -43px;z-index: 9999;border: 2px #2084E8 solid;width:126px;
+	background-color:#A0CC61;color:#ffffff;}
+.answer_div2 .jiantou{background: transparent url("../img/shudu/jiantou_down.png") 50% 100% no-repeat;
+	width: 126px;height: 16px;position: absolute;top:122px;left: 0;z-index: 10000;}
+.answer_div .cell,.answer_div2 .cell{cursor: pointer;}
+/*被点击单元格*/
+.click_cell{}
+/*出错了的单元格样式*/
+.warn_cell .number_p{}
+/*+++++++++++++++++++游戏规则++++++++++++++++++++*/
+.game_rule .text_p::first-letter{font-size: 25px;color: #ff0000;text-shadow: 0px 0px 5px #ff0000;
+	font-family: '楷体';font-weight: bold;}
+.game_rule .win_body_all p{color: #b75d06;margin: 15px 10px 0 10px;font-size: 15px;font-style: italic;}
+/*+++++++++++++++++++++++游戏按钮+++++++++++++++++++++++*/
+.game_btn{float: left;display: inline;height: 30px;}
+.game_btn p{width: 26px;height: 26px;margin: 2px 0 0 5px;display: inline;float: left;}
+.game_btn p a{width: 26px;height: 26px;display: block;}
+.game_btn p a.play{background: url("../img/shudu/btn/play_2.png") no-repeat transparent;}
+.game_btn p a.play_able:HOVER{background: url("../img/shudu/btn/play_1.png") no-repeat transparent;}
+
+.game_btn p a.stop{background: url("../img/shudu/btn/stop_2.png") no-repeat transparent;}
+.game_btn p a.stop_able:HOVER{background: url("../img/shudu/btn/stop_1.png") no-repeat transparent;}
+
+.game_btn p a.clear_btn{background: url("../img/shudu/btn/rubber_2.png") no-repeat transparent;}
+.game_btn p a.clear_btn_able:HOVER{background: url("../img/shudu/btn/rubber_1.png") no-repeat transparent;}
+
+.game_btn p a.replay{background: url("../img/shudu/btn/replay_2.png") no-repeat transparent;}
+.game_btn p a.replay_able:HOVER{background: url("../img/shudu/btn/replay_1.png") no-repeat transparent;}
+
+.game_btn p a.save{background: url("../img/shudu/btn/save_2.png") no-repeat transparent;}
+.game_btn p a.save_able:HOVER{background: url("../img/shudu/btn/save_1.png") no-repeat transparent;}
+
+.game_btn p a.load{background: url("../img/shudu/btn/load_2.png") no-repeat transparent;}
+.game_btn p a.load_able:HOVER{background: url("../img/shudu/btn/load_1.png") no-repeat transparent;}
+
+.game_btn p a.complete{background: url("../img/shudu/btn/complete.png") no-repeat transparent;}
+.game_btn p a.complete:HOVER{background: url("../img/shudu/btn/list.png") no-repeat transparent;}
+
+/*游戏信息*/
+.game_info{float: right;display: inline;}
+.game_info p{display: inline;float: right;margin-right: 10px;}
+.game_info p span{color: #9900ff;font-size: 14px;text-shadow: 0px 0px 5px #9900ff;}
+.game_info p span.lable{color: #0080ff;font-size: 14px;text-shadow: 0px 0px 5px #0080ff;margin-right: 3px;}
+/*LRH动画元素*/
+.cube{position: absolute;z-index: 10011;width: 20px;height: 20px;
+	background-color: #ff9900;top: -21px;}
+.image_L{width: 80px;height: 140px;background: url("../img/shudu/L.png") no-repeat;
+	position: absolute;z-index: 10020;display: none;top: 180px;}
+.image_R{width: 80px;height: 140px;background: url("../img/shudu/R.png") no-repeat;
+	position: absolute;z-index: 10020;display: none;top: 180px;}
+.image_H{width: 80px;height: 140px;background: url("../img/shudu/H.png") no-repeat;
+	position: absolute;z-index: 10020;display: none;top: 180px;}
+
+/*过关信息*/
+.successful_info_div{position: absolute;width: 200px;background-color: #ffff99;
+	border: 1px solid #ff9900;text-align: center;top: 200px;left: 50%;
+	margin-left: -100px;z-index: 10013;}
+.successful_info_div H1{color: #ff0000;margin: 15px 0;}
+.successful_info_div label{color:#222222;font-size: 15px;}
+.successful_info_div span{color:#9900ff;font-size: 15px;margin-left: 10px;}
+.successful_info_div .successful_btn{margin: 15px 6px 10px 6px;}
+.successful_btn p{display: inline;float: left;width: 90px;height: 30px;}
+.successful_btn p a{display: block;width: 90px;height: 30px;line-height: 30px;
+	font-weight: bold;color: #f5f5f5;background-color: #3399ff;font-size: 14px;}
+.successful_btn p a:HOVER{background-color: #0066ff;color: #ffffff;}
+.successful_btn .onceAgin{margin-left: 8px;}
+.successful_info_div .close_btn{position: absolute;top: -21px;left: 193px;
+	width: 29px;height: 29px;}
+.successful_info_div .close_btn a{display: block;width: 29px;height: 29px;
+	background: url("../img/shudu/close1.png") no-repeat;}
+.successful_info_div .close_btn a:HOVER {background: url("../img/shudu/close2.png") no-repeat}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

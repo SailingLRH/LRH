@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<property scope="context" name="varName" value="varValue" />
+	
+	<appender name="FILE"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<prudent>true</prudent>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>/logs/file/%d{yyyy-MM-dd}.log
+			</fileNamePattern>
+			<maxHistory>90</maxHistory>
+		</rollingPolicy>
+		<encoder>
+			<pattern>%date [%X{flow}] %-5level %X{ip} %logger{80} - %msg%n
+			</pattern>
+		</encoder>
+	</appender>
+
+
+	<appender name="PERFORMANCE"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<prudent>true</prudent>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>/logs/performance/%d{yyyy-MM-dd}.log
+			</fileNamePattern>
+			<maxHistory>6</maxHistory>
+		</rollingPolicy>
+		<encoder>
+			<pattern>%date [%X{flow}] %-5level %X{ip} %logger{80} - %msg%n
+			</pattern>
+		</encoder>
+	</appender>
+
+
+	<appender name="METHOD"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<prudent>true</prudent>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>/logs/method/%d{yyyy-MM-dd}.log
+			</fileNamePattern>
+			<maxHistory>6</maxHistory>
+		</rollingPolicy>
+		<encoder>
+			<!-- <pattern>%date [%X{flow}] %-5level %X{ip} %X{method} - %msg%n</pattern> -->
+			<pattern>%date [%X{flow}] %-5level %X{ip} %logger{80} - %msg%n
+			</pattern>
+		</encoder>
+	</appender>
+
+
+	<appender name="SQL"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<prudent>true</prudent>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>/logs/sql/%d{yyyy-MM-dd}.log
+			</fileNamePattern>
+			<maxHistory>6</maxHistory>
+		</rollingPolicy>
+		<encoder>
+			<pattern>%date [%X{flow}] %-5level %X{ip} %logger{80} - %msg%n
+			</pattern>
+		</encoder>
+	</appender>
+
+
+	<appender name="ERROR"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>ERROR</level>
+		</filter>
+		<prudent>true</prudent>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>/logs/error/%d{yyyy-MM}.logg</fileNamePattern>
+			<maxHistory>90</maxHistory>
+		</rollingPolicy>
+		<encoder>
+			<pattern>%date %-4relative [%X{flow}] %-5level %X{ip} %logger{80} -
+				%msg%n</pattern>
+		</encoder>
+	</appender>
+	<appender name="EMAIL" class="ch.qos.logback.classic.net.SMTPAppender">
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>ERROR</level>
+		</filter>
+		<smtpHost>mailhost.jp.fid-intl.com</smtpHost>
+		<to>xxx@xxx.com</to>
+		<from>xxx@xxx.com</from>
+		<subject>[${API_ENV}][%-5level][HK-API${log.mail.subject.suffix}]
+			%logger{80}</subject>
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<pattern>%date %-5level %logger{80}.%M - %message%n</pattern>
+		</layout>
+	</appender>
+
+
+	<logger name="com.lrh" level="warn" />
+
+	<logger name="PerformanceCounter" additivity="false">
+		<appender-ref ref="PERFORMANCE" />
+	</logger>
+
+	<logger name="MethodLogging">
+		<appender-ref ref="METHOD" />
+	</logger>
+
+
+	<logger name="com.lrh.mapper" additivity="false">
+		<appender-ref ref="SQL" />
+	</logger>
+
+
+	<root level="info">
+		<appender-ref ref="FILE" />
+		<appender-ref ref="EMAIL" />
+		<appender-ref ref="ERROR" />
+	</root>
+</configuration>

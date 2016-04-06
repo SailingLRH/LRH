@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lrh.mapper.NoticeMessageMapper" >
+  <resultMap id="BaseResultMap" type="com.lrh.model.NoticeMessage" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="message_type" property="messageType" jdbcType="SMALLINT" />
+    <result column="time" property="time" jdbcType="VARCHAR" />
+    <result column="is_read" property="isRead" jdbcType="BIT" />
+    <result column="url" property="url" jdbcType="VARCHAR" />
+    <result column="initiator_id" property="initiatorId" jdbcType="INTEGER" />
+    <result column="model" property="model" jdbcType="SMALLINT" />
+    <result column="data_id" property="dataId" jdbcType="BIGINT" />
+  </resultMap>
+  
+  <!-- 嵌套查询发起人 -->
+  <resultMap type="com.lrh.model.NoticeMessage" id="withInitiator" extends="BaseResultMap">
+  	<association property="initiator" column="initiator_id" javaType="com.lrh.model.User" 
+  		select="com.lrh.mapper.UserMapper.selectByPrimaryKey"></association>
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    id, user_id, title, content, message_type, time, is_read, url, initiator_id, model, 
+    data_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from notice_message
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from notice_message
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.lrh.model.NoticeMessage" >
+    <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into notice_message (user_id, title, content, 
+      message_type, time, is_read, 
+      url, initiator_id, model, 
+      data_id)
+    values (#{userId,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, 
+      #{messageType,jdbcType=SMALLINT}, #{time,jdbcType=VARCHAR}, #{isRead,jdbcType=BIT}, 
+      #{url,jdbcType=VARCHAR}, #{initiatorId,jdbcType=INTEGER}, #{model,jdbcType=SMALLINT}, 
+      #{dataId,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lrh.model.NoticeMessage" >
+    <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into notice_message
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="messageType != null" >
+        message_type,
+      </if>
+      <if test="time != null" >
+        time,
+      </if>
+      <if test="isRead != null" >
+        is_read,
+      </if>
+      <if test="url != null" >
+        url,
+      </if>
+      <if test="initiatorId != null" >
+        initiator_id,
+      </if>
+      <if test="model != null" >
+        model,
+      </if>
+      <if test="dataId != null" >
+        data_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="messageType != null" >
+        #{messageType,jdbcType=SMALLINT},
+      </if>
+      <if test="time != null" >
+        #{time,jdbcType=VARCHAR},
+      </if>
+      <if test="isRead != null" >
+        #{isRead,jdbcType=BIT},
+      </if>
+      <if test="url != null" >
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="initiatorId != null" >
+        #{initiatorId,jdbcType=INTEGER},
+      </if>
+      <if test="model != null" >
+        #{model,jdbcType=SMALLINT},
+      </if>
+      <if test="dataId != null" >
+        #{dataId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lrh.model.NoticeMessage" >
+    update notice_message
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="messageType != null" >
+        message_type = #{messageType,jdbcType=SMALLINT},
+      </if>
+      <if test="time != null" >
+        time = #{time,jdbcType=VARCHAR},
+      </if>
+      <if test="isRead != null" >
+        is_read = #{isRead,jdbcType=BIT},
+      </if>
+      <if test="url != null" >
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="initiatorId != null" >
+        initiator_id = #{initiatorId,jdbcType=INTEGER},
+      </if>
+      <if test="model != null" >
+        model = #{model,jdbcType=SMALLINT},
+      </if>
+      <if test="dataId != null" >
+        data_id = #{dataId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lrh.model.NoticeMessage" >
+    update notice_message
+    set user_id = #{userId,jdbcType=INTEGER},
+      title = #{title,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR},
+      message_type = #{messageType,jdbcType=SMALLINT},
+      time = #{time,jdbcType=VARCHAR},
+      is_read = #{isRead,jdbcType=BIT},
+      url = #{url,jdbcType=VARCHAR},
+      initiator_id = #{initiatorId,jdbcType=INTEGER},
+      model = #{model,jdbcType=SMALLINT},
+      data_id = #{dataId,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  
+  <!-- 条件查询总数量 -->
+  <select id="getNoticMessageCountByParam" parameterType="com.lrh.model.NoticeMessage" resultType="java.lang.Long">
+  	select count(id) from notice_message
+  	where 1=1
+  	<if test="userId !=null">
+  		and user_id = #{userId,jdbcType=INTEGER}
+  	</if>
+  	<if test="messageType !=null">
+  		and message_type = #{messageType,jdbcType=SMALLINT}
+  	</if>
+  	<if test="isRead !=null">
+  		and is_read = #{isRead,jdbcType=BIT}
+  	</if>
+  </select>
+  <!-- 条件 + 分页查询 -->
+  <select id="findNoticMessageByParam" parameterType="com.lrh.model.NoticeMessage" resultMap="withInitiator">
+  	select * from notice_message
+  	where 1=1
+  	<if test="userId !=null">
+  		and user_id = #{userId,jdbcType=INTEGER}
+  	</if>
+  	<if test="messageType !=null">
+  		and message_type = #{messageType,jdbcType=SMALLINT}
+  	</if>
+  	<if test="isRead !=null">
+  		and is_read = #{isRead,jdbcType=BIT}
+  	</if>
+  	order by is_read asc , time desc
+  	<if test="start !=null and max !=null">
+  		limit #{start},#{max}
+  	</if>
+  </select>
+  <!-- 通过用户id和数据id修改状态 -->
+  <update id="updateByIdAndUserId">
+  	update notice_message
+    set is_read = #{isRead,jdbcType=BIT}
+    where id = #{id,jdbcType=BIGINT}
+    and user_id = #{userId,jdbcType=INTEGER}
+  </update>
+  <!-- 通过模块和数据id删除数据 -->
+  <delete id="deleteByModelAndDataId" parameterType="com.lrh.model.NoticeMessage">
+  	delete from notice_message 
+  	where model = #{model,jdbcType=SMALLINT}
+    and data_id = #{dataId,jdbcType=BIGINT}
+  </delete>
+  <!-- 批量删除 -->
+  <delete id="deleteByModelAndDataIds" parameterType="java.util.Map">
+  	delete from notice_message 
+  	where model = #{model,jdbcType=SMALLINT}
+    and data_id in
+    <foreach collection="ids" open="(" separator="," close=")" item="id">
+	     #{id} 
+    </foreach>
+  </delete>
+</mapper>

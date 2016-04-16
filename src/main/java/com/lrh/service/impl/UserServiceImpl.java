@@ -130,4 +130,9 @@ public class UserServiceImpl implements UserService{
 		return userDao.getUserByUserName(userName);
 	}
 
+	@Override
+	public List<User> findUserList(User u) {
+	    return userDao.findUserList(u);
+	}
+
 }

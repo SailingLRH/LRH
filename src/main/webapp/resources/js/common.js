@@ -818,6 +818,8 @@ window.onresize=function(){
 			hideOrShowRuleAndBtn();
 		}else if(thisModel==7){
 			resetSpitslotSize(0);
+		}else if(thisModel==12){
+			initChatPage();
 		}
 	}
 }

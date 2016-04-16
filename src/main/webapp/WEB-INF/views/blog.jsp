@@ -30,13 +30,12 @@
 
 <!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
-	-->
+-->
 
 <script type="text/javascript">
 	thisModel = 9;
 </script>
-<link rel="stylesheet" type="text/css"
-	href="/resources/default/css/blog.css">
+<link rel="stylesheet" type="text/css" href="/resources/default/css/blog.css">
 </head>
 
 <body>
@@ -233,18 +232,18 @@
 				<div class="publish_blog win">
 					<div class="win_head">
 						<p class="win_head_icon">
-						<p>
+						</p>
 						<p class="win_head_title">写博文</p>
 	
 						<p class="win_controll_close_btn win_controll_btn">
 							<a href="javaScript:void(0)" class="able"  onclick="openWriteBlogWin()"></a>
-						<p>
+						</p>
 						<p class="win_controll_max_btn win_controll_btn">
 							<a href="javaScript:void(0)"></a>
 						</p>
 						<p class="win_controll_min_btn win_controll_btn">
 							<a href="javaScript:void(0)" class="able"></a>
-						<p>
+						</p>
 						<div class="clear"></div>
 					</div>
 	

@@ -45,6 +45,11 @@ public class ChatOnlineController extends BaseController{
 	@RequestMapping(value = "/index")
 	public String index(HttpServletRequest request,
 			HttpServletResponse response) {
+	    User u =new User();
+	    u.setStart(0L);
+	    u.setMax(10L);
+	    List<User> userList=userService.findUserList(u);
+	    request.setAttribute("userList", userList);
 	    return "chat";
 	}
 	

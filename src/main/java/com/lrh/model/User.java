@@ -26,12 +26,25 @@ public class User implements Serializable {
     private Boolean isAction;
 
     private String registTime;
+    
+    private Integer sex;
+    
+    private String sexStr;
 
     private String lastLoginTime;
     
     private String showName;				//如果存在昵称,则显示昵称,否则显示用户名
     
     private Boolean isOnline;				//是否在线 true:在线	false:离线
+    
+    private String account;				//指用户名,邮箱或昵称,用于模糊查询传参
+    
+    /**
+     * 分页属性
+     */
+    private Long start;
+    
+    private Long max;
 
     private static final long serialVersionUID = 1L;
 
@@ -68,6 +81,7 @@ public class User implements Serializable {
     }
 
     public String getNickName() {
+	nickName=null == nickName || "".equals(nickName) ?"[暂无昵称]":nickName;
         return nickName;
     }
 
@@ -131,6 +145,22 @@ public class User implements Serializable {
         this.lastLoginTime = lastLoginTime == null ? null : lastLoginTime.trim();
     }
 
+    public Long getStart() {
+        return start;
+    }
+
+    public void setStart(Long start) {
+        this.start = start;
+    }
+
+    public Long getMax() {
+        return max;
+    }
+
+    public void setMax(Long max) {
+        this.max = max;
+    }
+
     public Boolean getIsOnline()
 	{
     	if(UserController.userOnlineMap.containsKey(userName))
@@ -144,6 +174,36 @@ public class User implements Serializable {
 	public void setIsOnline(Boolean isOnline)
 	{
 		this.isOnline = isOnline;
+	}
+
+	public Integer getSex() {
+	    return sex;
+	}
+
+	public void setSex(Integer sex) {
+	    this.sex = sex;
+	}
+
+	public String getSexStr() {
+	    if(null==sex || (sex!=1 && sex!=2))
+		sexStr = "[未知]";
+	    else if(sex==1)
+		sexStr = "男";
+	    else if(sex==2)
+		sexStr = "女";
+	    return sexStr;
+	}
+
+	public void setSexStr(String sexStr) {
+	    this.sexStr = sexStr;
+	}
+
+	public String getAccount() {
+	    return account;
+	}
+
+	public void setAccount(String account) {
+	    this.account = account;
 	}
 
 	@Override

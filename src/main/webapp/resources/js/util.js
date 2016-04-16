@@ -253,15 +253,20 @@ function textLengthLimit(inputObj,msgObjId,maxLength,needAlert){
 }
 // 移除水印
 function clearMark(obj){
-	$(obj).parent().find(".mark").hide();
+	if($(obj).find(".mark,.help_text")!=null && $(obj).parent().find(".mark,.help_text").length>0){
+		$(obj).find(".mark,.help_text").hide();
+		$(obj).find("input").focus();
+	}else{
+		$(obj).parent().find(".mark,.help_text").hide();
+	}
 }
 // 添加水印
 function addMark(obj){
 	var inputVal=$(obj).val();
 	if(inputVal==null || inputVal==''){
-		$(obj).parent().find(".mark").show();
+		$(obj).parent().find(".mark,.help_text").show();
 	}else{
-		$(obj).parent().find(".mark").hide();
+		$(obj).parent().find(".mark,.help_text").hide();
 	}
 }
 //获取1~x之间的随机整数(x<10)
@@ -375,12 +380,12 @@ function showBigImg(domObj,objIsImg){
 	addFloatLoading();//加载中...
 	var w= document.body.clientWidth;
 	var h=document.body.clientHeight;
-	var html='<a class="close_big_img_btn" onclick="closeBigImg()"></a>' +
-			'<div class="big_img_show_div" style="width:'+(w-12)+'px;height:'+(h-12)+'px;">';
+	// <a class="close_big_img_btn" onclick="closeBigImg()"></a>
+	var html='<div class="big_img_show_div" style="width:'+(w-12)+'px;height:'+(h-12)+'px;" onclick="closeBigImg()" title="点击关闭大图">';
 	if(objIsImg!=null && objIsImg==1)
-		html+='<p><a target="_blank" href="'+$(domObj).find("img").attr("src")+'"><img class="big_img_show" src="'+$(domObj).attr("src")+'"/></a></p></div>';
+		html+='<p><a><img class="big_img_show" src="'+$(domObj).attr("src")+'"/></a></p></div>';
 	else
-		html+='<p><a target="_blank" href="'+$(domObj).find("img").attr("src")+'"><img class="big_img_show" src="'+$(domObj).find("img").attr("src")+'"/></a></p></div>';
+		html+='<p><a><img class="big_img_show" src="'+$(domObj).find("img").attr("src")+'"/></a></p></div>';
 	$("body").append(html);
 	//延迟执行
 	showBigImgTimeOut=window.setTimeout("showBigImg2()", 500);

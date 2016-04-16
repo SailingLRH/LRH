@@ -1,5 +1,6 @@
 package com.lrh.mapper;
 
+import java.util.List;
 import java.util.Map;
 
 import com.lrh.model.User;
@@ -20,4 +21,6 @@ public interface UserMapper {
     User getUserByUserNameOrEmail(String account);
     
     User getUserByUserName(String userName);
+    
+    List<User> findUserList(User u);
 }

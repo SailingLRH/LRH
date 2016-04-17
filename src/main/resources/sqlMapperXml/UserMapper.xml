@@ -217,17 +217,34 @@
     LEFT OUTER JOIN user_head_img ui ON u.id=ui.user_id AND ui.is_default=1
     where u.is_action = 1
     <if test="account !=null and account !=''">
-    	and ((lower(u.user_name) like '%${account,jdbcType=VARCHAR}%'
-    	or lower(u.email) like '%${account,jdbcType=VARCHAR}%'
-    	or lower(u.nick_name) like '%${account,jdbcType=VARCHAR}%')
+    	and (lower(u.user_name) like '%${account}%'
+    	or lower(u.email) like '%${account}%'
+    	or lower(u.nick_name) like '%${account}%')
     </if>
     
     <if test="sex !=null">
-    	and u.sex = #{sex,INTEGER}
+    	and u.sex = #{sex}
     </if>
     ORDER BY u.last_login_time DESC
     <if test="start !=null and max !=null">
     	LIMIT #{start},#{max}
+    </if>
+  </select>
+  
+  <!-- 查询用户数量 -->
+  <select id="countUser" parameterType="com.lrh.model.User" resultType="java.lang.Integer">
+    select count(distinct u.id)
+    from user u
+    LEFT OUTER JOIN user_head_img ui ON u.id=ui.user_id AND ui.is_default=1
+    where u.is_action = 1
+    <if test="account !=null and account !=''">
+    	and (lower(u.user_name) like '%${account}%'
+    	or lower(u.email) like '%${account}%'
+    	or lower(u.nick_name) like '%${account}%')
+    </if>
+    
+    <if test="sex !=null">
+    	and u.sex = #{sex}
     </if>
   </select>
 </mapper>

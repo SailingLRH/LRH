@@ -23,4 +23,6 @@ public interface UserMapper {
     User getUserByUserName(String userName);
     
     List<User> findUserList(User u);
+    
+    int countUser(User u);
 }

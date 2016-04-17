@@ -291,7 +291,7 @@ public class BaseController {
 	 * @param count
 	 * @param max
 	 * @param page 目标页
-	 * @return totalPage start nowPage
+	 * @return totalPage start nowPage total
 	 */
 	public Map<String,Long> getTotalPage(long count,long max,long page){
 		Map<String,Long> map = new HashMap<String , Long>();
@@ -302,6 +302,7 @@ public class BaseController {
 		map.put("start", start);
 		map.put("totalPage", totalPage);
 		map.put("nowPage", page);
+		map.put("total", count);
 		return map;
 	}
 	

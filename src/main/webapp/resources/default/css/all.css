@@ -541,11 +541,11 @@ p.p_checkbox2 input{position: relative;top: 4px;}
 .paging .page_info{float: left;color: #0080ff;font-style: italic;padding-left: 10px;}
 .paging .page{float: right;font-size: 15px;padding-right: 10px;}
 .paging .page .nowPage{font-weight: bold;color: #ffff00;padding:3px;background-color: #ff0000;
-	-moz-border-radius:5px; -webkit-border-radius:5px; border-radius:5px;cursor: default;}
+	-moz-border-radius:5px; -webkit-border-radius:5px; border-radius:5px;cursor: default;margin-left:5px;}
 
 #pageCodeInput,#limitInput{width: 40px;margin: 0 3px;text-align: center;}
 .page_a{padding: 3px;background-color: #0080ff;color: #ffffff;font-style: normal;cursor: pointer;
-	-moz-border-radius:5px; -webkit-border-radius:5px; border-radius:5px;}
+	-moz-border-radius:5px; -webkit-border-radius:5px; border-radius:5px;margin-left:5px;}
 .page_a:HOVER,.dataInfo_table_td p a:HOVER {background-color: #ff9900;}
 
 

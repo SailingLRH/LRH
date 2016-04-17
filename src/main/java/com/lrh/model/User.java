@@ -81,8 +81,7 @@ public class User implements Serializable {
     }
 
     public String getNickName() {
-	nickName=null == nickName || "".equals(nickName) ?"[暂无昵称]":nickName;
-        return nickName;
+	return nickName;
     }
 
     public void setNickName(String nickName) {

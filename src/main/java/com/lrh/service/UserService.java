@@ -127,4 +127,13 @@ public interface UserService {
      * @return list
      */
     public List<User> findUserList(User u);
+    
+    /**
+     * 查询用户数量(暂时通过account和sex查询)
+     * @author Sailing LRH
+     * @since 2016年4月17日
+     * @param user
+     * @return count
+     */
+    public int countUser(User u);
 }

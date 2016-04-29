@@ -17,15 +17,22 @@ function initChatPage(){
 
 //打开聊天窗口
 function openChatWin(id,userName,headImg){
-	
+	alertDiv2('正在打开聊天窗口...');
 }
 
 function initPageInfo(url,total,totalPage,max,currentPage){
 	getPageHtml(url,total,max,totalPage,currentPage,"pageInfo","loadMoreUser");
 }
 
-function loadMoreUser(url,isGoto){
-	var url="/chat/moreUser?pageNum=1&max=10"
+/**
+ * 异步加载更多用户
+ * @param url 包含页码,每页显示数量的url
+ * @param isGoto 是否是输入页数后,点击跳转
+ * @param isSet 是否是重新设置每页显示数量
+ */
+function loadMoreUser(url,isGoto,isSet){
+	//var url="/chat/moreUser?pageNum=1&max=10"
+	var me=$("#user-list").attr("me");
 	var content= $("#search-content").val();
 	var account = "";
 	if(content!=null && content!="" && content.indexOf("/男")!=-1){
@@ -34,14 +41,43 @@ function loadMoreUser(url,isGoto){
 	}else if(content!=null && content!="" && content.indexOf("/女")!=-1){
 		account=content.substring(0,content.indexOf("/女"));
 		url+="&account="+account+"&sex=2"
-	}else{
+	}else if(content!=null && content!=""){
 		url+="&account="+content
 	}
 	$.get(url,function(result){
+		debugger;
 		if(result.isSuccess){
 			if(result.data.list.length>0){
-				var html='';
-				initPageInfo(url,result.data.page.total,result.data.page.totalPage,10,result.data.page.nowPage);
+				$("#user-list-foreach").html('');
+				for(var i=0;i<result.data.list.length;i++){
+					var html='';
+					var one=result.data.list[i];
+					if((me!=null && me==one.id) || me==null || !one.isOnline){
+						html+='<ul class="one-user-ul data-ul unable">';
+					}else{
+						html+='<ul class="one-user-ul data-ul able" title="双击与TA聊天" ondblclick="openChatWin(\''+one.id+'\',\''+one.showName+'\',\''+one.photoUrl+'\')">';
+					}
+					html+='<li class="float_left col1">'+
+						'<img src="/loadImg?imgPath='+one.photoUrl+'"/>'+
+						'</li>'+
+						'<li class="float_left col2">'+one.userName+
+						'</li>'+
+						'<li class="float_left col3">'+(one.nickName == null || one.nickName == ""?"[暂无昵称]":one.nickName)+
+						'</li>'+
+						'<li class="float_left col4">'+one.sexStr+
+						'</li>'+
+						'<li class="float_left col5">';
+					if(one.isOnline)
+						html+='<span style="color:green !important">在线</span>';
+					else
+						html+='<span style="color:red !important">离线</span>';
+					html+='</li>'+
+						'</ul>'+
+						'<div class="clear"></div>';
+					$("#user-list-foreach").append(html);
+				}
+				
+				initPageInfo('/chat/moreUser',result.data.page.total,result.data.page.totalPage,result.data.page.max,result.data.page.nowPage);
 			}else{
 				$("#user-list-foreach").html('<p class="no_data">未能找到任何用户...</p>');
 				$("#pageInfo").html('');

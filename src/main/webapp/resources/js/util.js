@@ -452,15 +452,16 @@ function getPageHtml(url,total,max,totalPage,currentPage,elementId,targetFunctio
 	currentPage=parseInt(currentPage);
 	totalPage=parseInt(totalPage);
 	
+	if(url.indexOf("?")==-1) url+="?a=1";
 	var html='<div class="paging">'+
 		'<div class="page_info">'+
 	'共<span class="red total_count">'+total+'</span>条数据,每页显示<input type="text" id="limitInput" value="'+max+'"/>条数据'+
-	'<a class="page_a" onclick="'+targetFunction+'(\''+url+'&page=1\')" href="javaScript:void(0)">设置</a>'+
+	'<a class="page_a" onclick="'+targetFunction+'(\''+url+'&page=1\',0,1)" href="javaScript:void(0)">设置</a>'+
 	'</div>'+
 	'<div class="page">';
 	if(currentPage>1){
-		html+='<a onclick="'+targetFunction+'(\''+url+'&page=1\')" href="javaScript:void(0)" class="page_a">首页</a>'+
-			'<a onclick="'+targetFunction+'(\''+url+'&page='+(currentPage-1)+'\')" href="javaScript:void(0)" class="page_a">上页</a>';
+		html+='<a onclick="'+targetFunction+'(\''+url+'&max='+max+'&page=1\')" href="javaScript:void(0)" class="page_a">首页</a>'+
+			'<a onclick="'+targetFunction+'(\''+url+'&max='+max+'&page='+(currentPage-1)+'\')" href="javaScript:void(0)" class="page_a">上页</a>';
 	}
 	
 	if(totalPage<=10){
@@ -468,7 +469,7 @@ function getPageHtml(url,total,max,totalPage,currentPage,elementId,targetFunctio
 			if(i==currentPage)
 				html+='<span class="nowPage">'+i+'</span>';
 			else
-				html+='<a  onclick="'+targetFunction+'(\''+url+'&page='+i+'\')" href="javaScript:void(0)" class="page_a">'+i+'</a>';
+				html+='<a  onclick="'+targetFunction+'(\''+url+'&max='+max+'&page='+i+'\')" href="javaScript:void(0)" class="page_a">'+i+'</a>';
 		}
 	}else{
 		if(currentPage<=5){
@@ -476,32 +477,32 @@ function getPageHtml(url,total,max,totalPage,currentPage,elementId,targetFunctio
 				if(i==currentPage)
 					html+='<span class="nowPage">'+i+'</span>';
 				else
-					html+='<a  onclick="'+targetFunction+'(\''+url+'&page='+i+'\')" href="javaScript:void(0)" class="page_a">'+i+'</a>';
+					html+='<a  onclick="'+targetFunction+'(\''+url+'&max='+max+'&page='+i+'\')" href="javaScript:void(0)" class="page_a">'+i+'</a>';
 			}
 		}else if(currentPage>=(totalPage-4)){
 			for(var i=totalPage-9;i<=totalPage;i++){
 				if(i==currentPage)
 					html+='<span class="nowPage">'+i+'</span>';
 				else
-					html+='<a onclick="'+targetFunction+'(\''+url+'&page='+i+'\')" href="javaScript:void(0)" class="page_a">'+i+'</a>';
+					html+='<a onclick="'+targetFunction+'(\''+url+'&max='+max+'&page='+i+'\')" href="javaScript:void(0)" class="page_a">'+i+'</a>';
 			}
 		}else{
 			for(var i=currentPage-4;i<=currentPage+5;i++){
 				if(i==currentPage)
 					html+='<span class="nowPage">'+i+'</span>';
 				else
-					html+='<a  onclick="'+targetFunction+'(\''+url+'&page='+i+'\')" href="javaScript:void(0)" class="page_a">'+i+'</a>';
+					html+='<a  onclick="'+targetFunction+'(\''+url+'&max='+max+'&page='+i+'\')" href="javaScript:void(0)" class="page_a">'+i+'</a>';
 			}
 		}
 	}
 
 	if(currentPage<totalPage){
-		html+='<a onclick="'+targetFunction+'(\''+url+'&page='+(currentPage+1)+'\')" href="javaScript:void(0)" class="page_a">下页</a>'+
-			'<a onclick="'+targetFunction+'(\''+url+'&page='+totalPage+'\')" href="javaScript:void(0)" class="page_a">尾页</a>';
+		html+='<a onclick="'+targetFunction+'(\''+url+'&max='+max+'&page='+(currentPage+1)+'\')" href="javaScript:void(0)" class="page_a">下页</a>'+
+			'<a onclick="'+targetFunction+'(\''+url+'&max='+max+'&page='+totalPage+'\')" href="javaScript:void(0)" class="page_a">尾页</a>';
 	}
 	
 	html+='<input type="text" id="pageCodeInput" />/'+totalPage+
-		'<a class="page_a" onclick="'+targetFunction+'(\''+url+'&page='+(currentPage+1)+'\',1)" href="javaScript:void(0)">跳转</a>'+
+		'<a class="page_a" onclick="'+targetFunction+'(\''+url+'&max='+max+'\',1,0)" href="javaScript:void(0)">跳转</a>'+
 		'</div>'+
 		'<div class="clear"></div>'+
 		'</div>';

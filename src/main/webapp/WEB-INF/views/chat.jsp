@@ -58,7 +58,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    					<div class="clear"></div>
 	    				</div>
 	    				
-	    				<div id="user-list" total="${requestScope.pageInfo.total}" totalPage="${requestScope.pageInfo.totalPage}" max="10">
+	    				<div id="user-list" total="${requestScope.pageInfo.total}" totalPage="${requestScope.pageInfo.totalPage}" max="${requestScope.pageInfo.max}" me="${sessionScope.user.id}">
 	    					<ul class="head-ul data-ul">
 	    						<li class="float_left head col1 dataInfo_table_th_a">
 	    							头像

@@ -303,6 +303,7 @@ public class BaseController {
 		map.put("totalPage", totalPage);
 		map.put("nowPage", page);
 		map.put("total", count);
+		map.put("max", max);
 		return map;
 	}
 	

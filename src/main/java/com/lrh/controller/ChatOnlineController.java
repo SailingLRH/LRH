@@ -46,9 +46,9 @@ public class ChatOnlineController extends BaseController {
     public String index(HttpServletRequest request, HttpServletResponse response) {
 	User u = new User();
 	u.setStart(0L);
-	u.setMax(10L);
+	u.setMax(2L);
 	List<User> userList = userService.findUserList(u);
-	Map<String,Long> pageMap = this.getTotalPage(userService.countUser(u), 10, 1);
+	Map<String,Long> pageMap = this.getTotalPage(userService.countUser(u), 2, 1);
 	request.setAttribute("pageInfo", pageMap);
 	request.setAttribute("userList", userList);
 	return "chat";
@@ -63,7 +63,7 @@ public class ChatOnlineController extends BaseController {
      */
     @RequestMapping(value = "/moreUser")
     public String moreUser(HttpServletRequest request, HttpServletResponse response,
-	    @RequestParam(value = "pageNum", required = true) int pageNum,String account,Integer sex,Long max) {
+	    @RequestParam(value = "page", required = true) int pageNum,String account,Integer sex,Long max) {
 	try {
 	    max=max==null || max<1 || max>100?10L:max;
 	    User u = new User();

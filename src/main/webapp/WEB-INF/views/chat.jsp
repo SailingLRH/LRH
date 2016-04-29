@@ -77,6 +77,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    						</li>
 	    						
 	    						<li class="float_left head col5 dataInfo_table_th_a">
+	    							邮箱
+	    						</li>
+	    						
+	    						<li class="float_left head col6 dataInfo_table_th_b">
 	    							是否在线
 	    						</li>
 	    					</ul>
@@ -100,11 +104,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				    							<img src="/loadImg?imgPath=${one.photoUrl}"/>
 				    						</li>
 				    					
-				    						<li class="float_left col2">
+				    						<li class="float_left col2" title="${one.userName}">
 				    							${one.userName}
 				    						</li>
 				    						
-				    						<li class="float_left col3">
+				    						<li class="float_left col3" title="${one.nickName == null || one.nickName == ''?'[暂无昵称]':one.nickName}">
 				    							${one.nickName == null || one.nickName == ""?"[暂无昵称]":one.nickName}
 				    						</li>
 				    						
@@ -112,7 +116,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				    							${one.sexStr}
 				    						</li>
 				    						
-				    						<li class="float_left col5">
+				    						<li class="float_left col5" title="${one.email}">
+				    							${one.email == null || one.email == ''?'[暂无邮箱]':one.email}
+				    						</li>
+				    						
+				    						<li class="float_left col6">
 				    							<c:if test="${one.isOnline==true}">
 				    								<span style="color:green !important">在线</span>
 				    							</c:if>

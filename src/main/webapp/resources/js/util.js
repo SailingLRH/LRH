@@ -455,7 +455,7 @@ function getPageHtml(url,total,max,totalPage,currentPage,elementId,targetFunctio
 	if(url.indexOf("?")==-1) url+="?a=1";
 	var html='<div class="paging">'+
 		'<div class="page_info">'+
-	'共<span class="red total_count">'+total+'</span>条数据,每页显示<input type="text" id="limitInput" value="'+max+'"/>条数据'+
+	'共<span class="red total_count">'+total+'</span>条数据,每页显示<input type="text" id="limitInput" value="'+max+'" class="border-bottom"/>条数据'+
 	'<a class="page_a" onclick="'+targetFunction+'(\''+url+'&page=1\',0,1)" href="javaScript:void(0)">设置</a>'+
 	'</div>'+
 	'<div class="page">';

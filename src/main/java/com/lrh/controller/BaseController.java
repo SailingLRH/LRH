@@ -291,13 +291,13 @@ public class BaseController {
 	 * @param count
 	 * @param max
 	 * @param page 目标页
-	 * @return totalPage start nowPage total
+	 * @return totalPage start nowPage total max
 	 */
 	public Map<String,Long> getTotalPage(long count,long max,long page){
 		Map<String,Long> map = new HashMap<String , Long>();
 		long totalPage=count%max==0?count/max:count/max+1;
 		page=page<1?1:page;
-		//page=page>totalPage?totalPage:page;
+		page=page>totalPage?totalPage:page;
 		long start=(page-1)*max;
 		map.put("start", start);
 		map.put("totalPage", totalPage);

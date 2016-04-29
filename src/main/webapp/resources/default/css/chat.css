@@ -22,15 +22,15 @@
 #user-list ul.unable{cursor: default;}
 
 .data-ul .head{font-weight: bold;}
-.data-ul li{text-align: center;height: 50px;}
+.data-ul li{text-align: center;height: 50px;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;}
 .data-ul li img{width: 50px;height: 50px;}
 
 .data-ul li.col1{width:15%}
-.data-ul li.col2{width:27%}
-.data-ul li.col3{width:28%}
-.data-ul li.col4{width:15%}
-.data-ul li.col5{width:15%}
-
+.data-ul li.col2{width:18%}
+.data-ul li.col3{width:17%}
+.data-ul li.col4{width:10%}
+.data-ul li.col5{width:25%}
+.data-ul li.col6{width:15%}
 
 
 

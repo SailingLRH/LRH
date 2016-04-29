@@ -2,6 +2,8 @@
 /*针对谷歌浏览器:防止鼠标悬浮在图片上时,出现大图片预览*/
 #hzImg{display: none !important;}
 /*通用*/
+.no-border{border: none;outline: none;}
+.border-bottom{border-bottom: 1px #c0c0c0 solid;outline: none;border-top: none;border-left: none;border-right: none;}
 .select{border: 0;outline: none;background: transparent;color: #0080ff;text-shadow: 0px 0px 2px #0080ff;}
 .radius_5px{-moz-border-radius:5px; -webkit-border-radius:5px; border-radius:5px;}
 .loading_float_div{width: 100%;height: 40px;background: url("../img/bg/loading2.gif") 50% 50% no-repeat transparent;

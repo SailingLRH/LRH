@@ -31,7 +31,40 @@ function initPageInfo(url,total,totalPage,max,currentPage){
  * @param isSet 是否是重新设置每页显示数量
  */
 function loadMoreUser(url,isGoto,isSet){
-	//var url="/chat/moreUser?pageNum=1&max=10"
+	//var url="/chat/moreUser?page=1&max=10"
+	var max0=$("#user-list").attr("max");
+	if(isSet!=null && isSet==1){
+		var max=$("#limitInput").val();
+		if(max==null || max==''){
+			alertDiv2("请输入每页显示的数量!");
+			$("#limitInput").focus();
+			return;
+		}else if(!(/^\+?[1-9]\d*$/).test(max) || parseInt(max)>100){
+			alertDiv2("请输入一个0-100的整数!");
+			$("#limitInput").val('');
+			$("#limitInput").focus();
+			return;
+		}
+		url='/chat/moreUser?page=1&max='+max;
+	}
+	
+	if(isGoto!=null && isGoto==1){
+		var gotoPage=$("#pageCodeInput").val();
+		if(gotoPage==null || gotoPage==''){
+			alertDiv2("请输入要跳转的页码!");
+			$("#pageCodeInput").focus();
+			return;
+		}else if(!(/^\+?[1-9]\d*$/).test(gotoPage)){
+			alertDiv2("请输入一个正整数!");
+			$("#pageCodeInput").val('');
+			$("#pageCodeInput").focus();
+			return;
+		}
+		url='/chat/moreUser?page='+gotoPage+'&max='+max0;
+	}
+	
+	
+	url=url==null||url==''?'/chat/moreUser?page=1&max='+max0:url;
 	var me=$("#user-list").attr("me");
 	var content= $("#search-content").val();
 	var account = "";
@@ -45,7 +78,6 @@ function loadMoreUser(url,isGoto,isSet){
 		url+="&account="+content
 	}
 	$.get(url,function(result){
-		debugger;
 		if(result.isSuccess){
 			if(result.data.list.length>0){
 				$("#user-list-foreach").html('');
@@ -60,13 +92,16 @@ function loadMoreUser(url,isGoto,isSet){
 					html+='<li class="float_left col1">'+
 						'<img src="/loadImg?imgPath='+one.photoUrl+'"/>'+
 						'</li>'+
-						'<li class="float_left col2">'+one.userName+
+						'<li class="float_left col2" title="'+one.userName+'">'+one.userName+
 						'</li>'+
-						'<li class="float_left col3">'+(one.nickName == null || one.nickName == ""?"[暂无昵称]":one.nickName)+
+						'<li class="float_left col3" title="'+(one.nickName == null || one.nickName == ""?"[暂无昵称]":one.nickName)+'">'+(one.nickName == null || one.nickName == ""?"[暂无昵称]":one.nickName)+
 						'</li>'+
 						'<li class="float_left col4">'+one.sexStr+
 						'</li>'+
-						'<li class="float_left col5">';
+						
+						'<li class="float_left col5" title="'+(one.email == null || one.email == ""?"[暂无邮箱]":one.email)+'">'+(one.email == null || one.email == ""?"[暂无邮箱]":one.email)+
+						'</li>'+
+						'<li class="float_left col6">';
 					if(one.isOnline)
 						html+='<span style="color:green !important">在线</span>';
 					else
@@ -82,7 +117,7 @@ function loadMoreUser(url,isGoto,isSet){
 				$("#user-list-foreach").html('<p class="no_data">未能找到任何用户...</p>');
 				$("#pageInfo").html('');
 				
-				alertDiv2('没有搜索到用户,换个词试试');
+				//alertDiv2('没有搜索到用户,换个词试试');
 			}
 		}else{
 			alertDiv2(result.msg);

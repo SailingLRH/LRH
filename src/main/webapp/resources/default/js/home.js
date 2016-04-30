@@ -15,6 +15,7 @@ function getMoreHomeData(){
 }
 //异步获取更多动态
 function getMoreDynamicData(){
+	debugger;
 	if(getDynamicDataLock){
 		return false;//如果锁住,则不执行
 	}
@@ -46,7 +47,6 @@ function getMoreDynamicData(){
 				var html=null;
 				for(var i=0;i<dataList.length;i++){
 					if(dataList[i].moduleId==7) html=spitslotData2Html(dataList[i].data,null,result.data.me,1);
-					
 					$("#more_dynamic_message").before(html);
 					html=null;
 				}

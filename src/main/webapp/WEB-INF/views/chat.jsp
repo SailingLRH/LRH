@@ -40,7 +40,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	   				<p class="win_head_icon"></p>
 	   				<p class="win_head_title">搜索网友</p>
 	    			
-	   				<p class="win_controll_close_btn win_controll_btn"><a href="javaScript:void(0)" class="able" onclick="openWriteBlogWin()"></a></p>
+	   				<p class="win_controll_close_btn win_controll_btn"><a href="javaScript:void(0)" class="unable"></a></p>
 	   				<p class="win_controll_max_btn win_controll_btn"><a href="javaScript:void(0)"></a></p>
 	   				<p class="win_controll_min_btn win_controll_btn"><a href="javaScript:void(0)" class="able"></a></p>
 	    			
@@ -143,6 +143,33 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	</div>
 	    </div>
 	    <div class="clear"></div>
+    </div>
+    
+    <!-- 聊天窗口 -->
+    <div id="chat-window" class="win">
+    	<div class="win_head">
+  				<p class="win_head_icon"></p>
+  				<p class="win_head_title">和XXX聊天中...</p>
+  				<p class="win_controll_close_btn win_controll_btn"><a href="javaScript:void(0)" class="able" onclick="openSearchUserWin()"></a></p>
+  				<p class="win_controll_max_btn win_controll_btn"><a href="javaScript:void(0)"></a></p>
+  				<p class="win_controll_min_btn win_controll_btn"><a href="javaScript:void(0)" class="able"></a></p>
+   			
+   			<div class="clear"></div>
+   		</div>
+   		
+   		<div class="win_body">
+   			<div class="win_body_all message-all">
+   				<!-- 接收消息 -->
+   				<div class="message-box"></div>
+   				
+   				<!-- 表情 -->
+   				<div class="emoji"></div>
+   				
+   				<!-- 发送消息 -->
+   				<div class="message-box"></div>
+   			</div>
+   		</div>
+	    <div class="win_bottom"></div>
     </div>
   </body>
   <script type="text/javascript" src="/resources/default/js/chat.js"></script>

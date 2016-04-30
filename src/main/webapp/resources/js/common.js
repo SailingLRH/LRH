@@ -930,6 +930,8 @@ function hideMenu(){
 					hideOrShowRuleAndBtn();
 				}else if(thisModel==7){
 					resetSpitslotSize(1);
+				}else if(thisModel==12){
+					initChatPage(1);
 				}
 			}
 			
@@ -956,6 +958,10 @@ function showMenu(){
 	
 	$(".ke-container-default,#editor").stop().animate({width:(win_w-40)+'px'},500,"swing");
 	$(".spitslot_content textarea").stop().animate({width:(win_w-142)+'px'},500,"swing");
+	
+	//聊天页面
+	$("#search-user-box p.search_input").stop().animate({width:(win_w-122)+'px'},500);
+	$("#search-user-box p.search_input").find("input").stop().animate({width:(win_w-132)+'px'},500);
 	
 	var win=$(".win");
 	if(win.length>0){

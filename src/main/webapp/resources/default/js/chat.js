@@ -7,12 +7,19 @@ $(function(){
 });
 
 //调整页面布局
-function initChatPage(){
+function initChatPage(isHideMenu){
 	var win_w=$("#search-user-box").parent().width();
+	if(isHideMenu!=null && isHideMenu==1) win_w=win_w+150;
 	var input_p_w=win_w-122;
 	var input_w=input_p_w-10;
-	$("#search-user-box p.search_input").width(input_p_w+'px');
-	$("#search-user-box p.search_input").find("input").width(input_w+'px');
+	
+	if(isHideMenu!=null && isHideMenu==1){
+		$("#search-user-box p.search_input").stop().animate({width:input_p_w+'px'},500);
+		$("#search-user-box p.search_input").find("input").stop().animate({width:input_w+'px'},500);
+	}else{
+		$("#search-user-box p.search_input").width(input_p_w+'px');
+		$("#search-user-box p.search_input").find("input").width(input_w+'px');
+	}
 }
 
 //打开聊天窗口
@@ -22,6 +29,11 @@ function openChatWin(id,userName,headImg){
 
 function initPageInfo(url,total,totalPage,max,currentPage){
 	getPageHtml(url,total,max,totalPage,currentPage,"pageInfo","loadMoreUser");
+}
+
+//关闭聊天窗口,并打开搜索用户的窗口
+function openSearchUserWin(){
+	
 }
 
 /**

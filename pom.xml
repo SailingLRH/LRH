@@ -262,6 +262,13 @@
 			<version>2.0.10</version>
 		</dependency>
 
+		<!-- ehcatch -->
+		<dependency>
+		    <groupId>net.sf.ehcache</groupId>
+		    <artifactId>ehcache</artifactId>
+		    <version>2.9.0</version>
+		</dependency>
+		
 	</dependencies>	
 	<build>
 		<!-- 工程路径结构设置 -->
